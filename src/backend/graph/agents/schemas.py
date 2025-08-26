@@ -16,11 +16,19 @@ class AgentState(MessagesState):
     next_node: Literal['astro_node', 'taro_node', 'astro_tool', 'taro_tool', 'END'] = Field(..., description='What next node need ot execute')
     
     taro_cards: List[TaroCard]
+    unlock_name: str
     
     message_to_user: str
+    user_message: str
     
 class ImgOutput(BaseModel):
     taro_cards: List[TaroCard] = Field(..., description='Fill this with name of taro card and reversed (bool)')
+    
+    unlock_name: str = Field(..., description='Name of unlock card')
+    
+    
+class UnlockCard(BaseModel):
+    unlock_name: str = Field(..., description='Name of unlock card')
     
 class Agents(BaseModel):
     taro_agent: object
@@ -29,6 +37,7 @@ class Agents(BaseModel):
     astro_tool: object
     router_agent: object
     img_agent: object
+    unlock_card_agent: object
 
     model_config = {
         "arbitrary_types_allowed": True

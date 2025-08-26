@@ -5,13 +5,13 @@ from langgraph.prebuilt import ToolNode
 
 from .config import base_url
 
-from .prompt import taro_prompt, astro_prompt, router_prompt, img_prompt
-from .schemas import RouterOutput, ImgOutput, Agents
+from .prompt import taro_prompt, astro_prompt, router_prompt, img_prompt, unlock_card_prompt
+from .schemas import RouterOutput, ImgOutput, Agents, UnlockCard
 
 import os
 
 async def create_tarot_agent():
-    llm = ChatOpenAI(base_url=base_url, model='openai/gpt-5-nano', temperature=0.7)
+    llm = ChatOpenAI(base_url=base_url, model='google/gemini-2.5-flash-lite', temperature=0.5)
     
     tarot_mcp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../tarotmcp/dist/index.js"))
     
@@ -67,9 +67,15 @@ def create_router_agent():
     return agent
 
 def create_img_agent():
-    llm = ChatOpenAI(model='openai/gpt-4.1-nano',base_url=base_url, temperature=0)
+    llm = ChatOpenAI(model='google/gemini-2.5-flash',base_url=base_url, temperature=0)
     
     agent = img_prompt | llm.with_structured_output(ImgOutput)
+    return agent
+
+def create_card_unlock_agent():
+    llm = ChatOpenAI(model='qwen/qwq-32b', base_url=base_url, temperature=0)
+    agent = unlock_card_prompt | llm.with_structured_output(UnlockCard)
+    
     return agent
 
 async def create_agents():
@@ -77,11 +83,13 @@ async def create_agents():
     astro_agent, astro_tool = await create_astro_agent()
     router_agent = create_router_agent()
     img_agent = create_img_agent()
+    unlock_card_agent = create_card_unlock_agent()
     return Agents(
         taro_agent=taro_agent, 
         taro_tool=taro_tool, 
         astro_agent=astro_agent, 
         astro_tool=astro_tool,
         router_agent=router_agent, 
-        img_agent=img_agent
+        img_agent=img_agent,
+        unlock_card_agent=unlock_card_agent
         )

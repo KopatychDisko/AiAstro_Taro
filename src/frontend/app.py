@@ -4,7 +4,7 @@ import time
 import json
 
 from schema import *
-from templates import render_celtic_cross
+from templates import create_html_taro
 
 def stream_text(text, delay=0.01):
     """Генератор, который выдаёт текст по кусочкам"""
@@ -26,11 +26,24 @@ st.title("AI Stream Chat")
 for  msg in st.session_state.messages:
     with st.chat_message(msg['role']):
         if msg.get('cards'):
-            render_celtic_cross(msg['cards'])
+            create_html_taro(msg['cards'], msg['unlock_name'])
             
         st.markdown(msg['content'])
         
+with st.sidebar:
+    st.title('Settings 🛠️')
+    if st.user.is_logged_in:
+        if st.button('Logout 😞'):
+            st.logout()
+    else:
+        if st.button('Login 🙂'):
+            st.login()
+        
 if prompt := st.chat_input("Your query:", disabled=st.session_state.wait):
+    if not st.user.is_logged_in:
+        st.warning("Need to login! Check left 👈")
+        st.stop()
+    
     st.session_state.messages.append({'role': 'user', 'content': prompt})
     
     with st.chat_message("user"):
@@ -40,7 +53,7 @@ if prompt := st.chat_input("Your query:", disabled=st.session_state.wait):
     
     with st.status('Think...') as status:
         # Асинхронный запрос к FastAPI с чтением потока
-        with httpx.stream("POST", "http://127.0.0.1:8000/stream", json={"message": prompt}, timeout=None) as r:
+        with httpx.stream("POST", "http://127.0.0.1:8000/stream", json={"message": prompt, "user_id": st.user.sub}, timeout=None) as r:
             for chunk in r.iter_text():
                 temp = json.loads(chunk)
                 data = ExtractData.model_validate(temp)
@@ -60,16 +73,19 @@ if prompt := st.chat_input("Your query:", disabled=st.session_state.wait):
                     
                     st.session_state.ai_msg = data.message_to_user
                     
-                    st.session_state.cards = data.taro_cards if data.taro_cards else None
+                    st.session_state.cards = data.taro_cards
+                    st.session_state.unlock_name = data.unlock_name
                     
-                    st.session_state.messages.append({'role': 'ai', 'content': st.session_state.ai_msg, 'cards': st.session_state.cards})
+                    st.session_state.messages.append({'role': 'ai', 'content': st.session_state.ai_msg, 'cards': st.session_state.cards, 'unlock_name': st.session_state.unlock_name})
                     
     if st.session_state.cards:
-        render_celtic_cross(st.session_state.cards)
+        create_html_taro(st.session_state.cards, 
+                         st.session_state.unlock_name)
     
     with st.chat_message('ai'):
         st.write_stream(stream_text(st.session_state.ai_msg))
         
     st.session_state.cards = None
     st.session_state.wait = False
-    st.rerun()
+    
+    st.stop()

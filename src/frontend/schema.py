@@ -10,5 +10,7 @@ class ExtractData(BaseModel):
     taro_cards: Optional[List[TaroCard]] = None
     next_node: Optional[Literal['astro_node', 'taro_node', 'astro_tool', 'taro_tool', 'router_node','img_node', 'END']] = 'router_node'
     
+    unlock_name: Optional[str] = None
+    
     class Config:
         extra = "ignore"

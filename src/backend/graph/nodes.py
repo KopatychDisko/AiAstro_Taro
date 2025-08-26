@@ -5,6 +5,7 @@ from langgraph.constants import END
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.store.memory import InMemoryStore
 
+
 from .agents import *
 
 async def setup_workflow():
@@ -12,11 +13,12 @@ async def setup_workflow():
     
     async def router_node(state):
         answer = await agents.router_agent.ainvoke(state['messages'])
+        user_message = state['messages'][-1].content
         
         if answer.next_node == 'END':
-            return {'message_to_user': answer.message, 'next_node': answer.next_node}
+            return {'message_to_user': answer.message, 'next_node': answer.next_node, 'user_message': user_message}
         
-        return {'next_node': answer.next_node}
+        return {'next_node': answer.next_node, 'user_message': user_message}
 
     async def astro_node(state):
         answer = await agents.astro_agent.ainvoke(state['messages'])
@@ -41,7 +43,8 @@ async def setup_workflow():
     async def img_node(state):
         answer = await agents.img_agent.ainvoke(state['message_to_user'])
         
-        return {'taro_cards': answer.taro_cards, 'next_node': 'END'}
+        return {'taro_cards': answer.taro_cards, 'next_node': 'END', 'unlock_name': answer.unlock_name}
+    
 
     def next_node(state):
         return state['next_node']
@@ -72,6 +75,6 @@ async def setup_workflow():
 
     graph.add_edge('img_node', END)
     
-    workflow = graph.compile()
+    workflow = graph.compile(checkpointer=InMemorySaver(), store=InMemoryStore())
     
     return workflow
