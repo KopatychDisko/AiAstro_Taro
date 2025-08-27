@@ -1,56 +1,53 @@
 import streamlit as st
 import httpx
-import time
 import json
 
 from schema import *
 from templates import create_html_taro
 
-def stream_text(text, delay=0.01):
-    """Генератор, который выдаёт текст по кусочкам"""
-    for char in text:
-        yield char
-        time.sleep(delay)
-            
-if 'messages' not in st.session_state:
-    st.session_state.messages = []
-    
-if 'wait' not in st.session_state:
-    st.session_state.wait = False
-    
-if 'ai_msg' not in st.session_state:
-    st.session_state.ai_msg = ''
+from utils import stream_text, set_data, create_form_with_info
 
-st.title("AI Stream Chat")   
+if not st.user.is_logged_in:
+    st.switch_page('pages/login_menu.py')
+            
+set_data()
+
+st.set_page_config(page_title='AI Taro', page_icon='🔮')
+st.title("AI taro chat")
     
-for  msg in st.session_state.messages:
-    with st.chat_message(msg['role']):
+for msg in st.session_state.messages:
+    avatar = st.session_state.user_avatar if msg['role'] == 'user' else st.session_state.bot_avatar
+    with st.chat_message(msg['role'], avatar=avatar):
         if msg.get('cards'):
             create_html_taro(msg['cards'], msg['unlock_name'])
-            
         st.markdown(msg['content'])
         
 with st.sidebar:
     st.title('Settings 🛠️')
+    
+    st.divider()
+    
+    st.subheader('User info')
+    create_form_with_info()
+    
+    st.divider()
+    
     if st.user.is_logged_in:
         if st.button('Logout 😞'):
             st.logout()
-    else:
-        if st.button('Login 🙂'):
-            st.login()
-        
-if prompt := st.chat_input("Your query:", disabled=st.session_state.wait):
-    if not st.user.is_logged_in:
-        st.warning("Need to login! Check left 👈")
-        st.stop()
     
+    
+prompt = st.chat_input("Your query:", key='chat_input', disabled=st.session_state.wait)
+
+if prompt:
     st.session_state.messages.append({'role': 'user', 'content': prompt})
-    
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar=st.session_state.user_avatar):
         st.markdown(prompt)
         
     st.session_state.wait = True
     
+        
+if st.session_state.wait:  
     with st.status('Think...') as status:
         # Асинхронный запрос к FastAPI с чтением потока
         with httpx.stream("POST", "http://127.0.0.1:8000/stream", json={"message": prompt, "user_id": st.user.sub}, timeout=None) as r:
@@ -77,15 +74,14 @@ if prompt := st.chat_input("Your query:", disabled=st.session_state.wait):
                     st.session_state.unlock_name = data.unlock_name
                     
                     st.session_state.messages.append({'role': 'ai', 'content': st.session_state.ai_msg, 'cards': st.session_state.cards, 'unlock_name': st.session_state.unlock_name})
-                    
-    if st.session_state.cards:
-        create_html_taro(st.session_state.cards, 
-                         st.session_state.unlock_name)
     
-    with st.chat_message('ai'):
+    with st.chat_message('ai', avatar=st.session_state.bot_avatar):
+        if st.session_state.cards:
+            create_html_taro(st.session_state.cards, 
+                            st.session_state.unlock_name)
         st.write_stream(stream_text(st.session_state.ai_msg))
         
     st.session_state.cards = None
     st.session_state.wait = False
     
-    st.stop()
+    st.rerun()

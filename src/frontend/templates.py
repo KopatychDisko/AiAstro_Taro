@@ -147,8 +147,6 @@ def render_relationship(cards):
 
     html_code += '</div>'
     st.components.v1.html(html_code, height=500)
-    
-import streamlit as st
 
 def render_career_path(cards):
     """
@@ -161,37 +159,37 @@ def render_career_path(cards):
         (50, 50),   # 1: текущая ситуация
         (200, 50),  # 2: сильные стороны
         (350, 50),  # 3: слабые стороны
-        (50, 250),  # 4: совет
-        (200, 250), # 5: внешние влияния
-        (350, 250), # 6: результат
+        (50, 280),  # 4: совет (чуть ниже, чтобы было больше места)
+        (200, 280), # 5: внешние влияния
+        (350, 280), # 6: результат
     ]
 
-    html_code = '<div class="career-path" style="position:relative; width:500px; height:450px;">'
+    html_code = '<div class="career-path" style="position:relative; width:520px; height:520px;">'
 
     for i, card in enumerate(cards_data):
-        top, left = positions[i]
+        left, top = positions[i]  # исправил порядок, иначе путаница
         transform = "rotate(180deg)" if card["reversed"] else "none"
-
         html_code += f"""
         <div style="
             position:absolute;
-            top:{top}px;
+            top:{top}px; 
             left:{left}px;
-            width:120px;
-            height:180px;
-            border-radius:10px;
-            overflow:hidden;
+            width:120px; 
+            height:180px; 
+            border-radius:10px; 
+            overflow:hidden; 
             box-shadow:0 4px 8px rgba(0,0,0,0.25);
             transform:{transform};
         ">
-            <img src="{card['img']}" style="width:100%; height:100%; object-fit:contain;">
+            <img src="{card['img']}" style="width:100%; height:100%; object-fit:cover;">
         </div>
         """
 
     html_code += '</div>'
-    st.components.v1.html(html_code, height=450)
 
-import streamlit as st
+    st.components.v1.html(html_code, height=550)  # добавил запас по высоте
+
+
 
 def render_decision_making(cards):
     """

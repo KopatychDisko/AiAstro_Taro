@@ -1,3 +1,8 @@
+import asyncio
+import sys
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
@@ -5,8 +10,14 @@ from fastapi.responses import StreamingResponse
 from langchain_core.messages import HumanMessage
 from langchain_core.runnables import RunnableConfig
 
+from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
+
 from schemas import ExtractData, UserData
 from graph import *
+from dotenv import load_dotenv
+
+import os
+
 
 async def stream_agent(item: UserData):
     config = RunnableConfig(
@@ -14,6 +25,7 @@ async def stream_agent(item: UserData):
             "thread_id": item.user_id
         }
     )
+    
     async for chunk in workflow.astream({'messages': [HumanMessage(item.message)], 'next_node': 'router_node'},
                                  stream_mode='values', config=config):
         if chunk.get('taro_cards'):
@@ -24,12 +36,15 @@ async def stream_agent(item: UserData):
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup    
-    global workflow
-    workflow = await setup_workflow()
+    # Startup
+    load_dotenv()
+    sql_url = os.getenv('SQL_URL')
     
-    yield
-    # Shutdown
+    async with AsyncPostgresSaver.from_conn_string(sql_url) as checkpointer:
+        global workflow
+        workflow = await setup_workflow(checkpointer)
+        app.state.checkpointer = checkpointer
+        yield
 
 app = FastAPI(lifespan=lifespan)
 

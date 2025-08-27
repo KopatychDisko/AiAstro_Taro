@@ -5,10 +5,9 @@ from langgraph.constants import END
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.store.memory import InMemoryStore
 
-
 from .agents import *
 
-async def setup_workflow():
+async def setup_workflow(checkpointer):
     agents = await create_agents()
     
     async def router_node(state):
@@ -75,6 +74,6 @@ async def setup_workflow():
 
     graph.add_edge('img_node', END)
     
-    workflow = graph.compile(checkpointer=InMemorySaver(), store=InMemoryStore())
+    workflow = graph.compile(checkpointer=checkpointer)
     
     return workflow

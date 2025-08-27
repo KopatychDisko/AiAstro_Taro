@@ -11,7 +11,7 @@ from .schemas import RouterOutput, ImgOutput, Agents, UnlockCard
 import os
 
 async def create_tarot_agent():
-    llm = ChatOpenAI(base_url=base_url, model='google/gemini-2.5-flash-lite', temperature=0.5)
+    llm = ChatOpenAI(base_url=base_url, model='openai/gpt-5-nano', temperature=0.2)
     
     tarot_mcp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../tarotmcp/dist/index.js"))
     
@@ -36,7 +36,7 @@ async def create_tarot_agent():
 
 
 async def create_astro_agent():
-    llm = ChatOpenAI(model='openai/gpt-5-nano',base_url=base_url, temperature=0.7)
+    llm = ChatOpenAI(model='openai/gpt-4.1-nano',base_url=base_url, temperature=0.7)
     
     astro_mcp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../astromcp/dist/main.js"))
     
@@ -67,7 +67,7 @@ def create_router_agent():
     return agent
 
 def create_img_agent():
-    llm = ChatOpenAI(model='google/gemini-2.5-flash',base_url=base_url, temperature=0)
+    llm = ChatOpenAI(model='openai/gpt-4o-mini-2024-07-18',base_url=base_url, temperature=0)
     
     agent = img_prompt | llm.with_structured_output(ImgOutput)
     return agent
