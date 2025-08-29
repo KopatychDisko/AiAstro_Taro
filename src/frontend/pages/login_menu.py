@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import date
-from check_city import get_info_from_city
+from .check_city import get_info_from_city
 
 today = date.today()
 thirteen_years_ago = today.replace(year=today.year - 13)
