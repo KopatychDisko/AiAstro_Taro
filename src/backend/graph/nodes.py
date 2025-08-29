@@ -2,12 +2,17 @@ from langgraph.graph import StateGraph
 from langgraph.prebuilt import tools_condition
 from langgraph.constants import END
 
-from langgraph.checkpoint.memory import InMemorySaver
-from langgraph.store.memory import InMemoryStore
+from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 
 from .agents import *
 
-async def setup_workflow(checkpointer):
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+sql_url = os.getenv('SQL_URL')
+
+async def setup_workflow():
     agents = await create_agents()
     
     async def router_node(state):
@@ -74,6 +79,7 @@ async def setup_workflow(checkpointer):
 
     graph.add_edge('img_node', END)
     
-    workflow = graph.compile(checkpointer=checkpointer)
+    async with AsyncPostgresSaver.from_conn_string(sql_url) as checkpointer:
+        workflow = graph.compile(checkpointer=checkpointer)
     
     return workflow

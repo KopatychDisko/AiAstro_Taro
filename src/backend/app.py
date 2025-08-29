@@ -37,14 +37,9 @@ async def stream_agent(item: UserData):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    load_dotenv()
-    sql_url = os.getenv('SQL_URL')
-    
-    async with AsyncPostgresSaver.from_conn_string(sql_url) as checkpointer:
-        global workflow
-        workflow = await setup_workflow(checkpointer)
-        app.state.checkpointer = checkpointer
-        yield
+    global workflow
+    workflow = await setup_workflow()
+    yield
 
 app = FastAPI(lifespan=lifespan)
 
