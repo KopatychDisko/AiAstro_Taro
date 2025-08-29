@@ -55,7 +55,7 @@ with st.container(border=True, horizontal_alignment="center", vertical_alignment
         value=thirteen_years_ago,
         min_value=ninety_years_ago,
     ):
-        st.session_state.birth_day = birth_day.strftime("%DD.%MM.%YYYY")
+        st.session_state.birth_day = birth_day
 
     if time_birth := st.time_input("Your time birth"):
         # Сохраняем СРАЗУ в строковом формате
@@ -69,6 +69,7 @@ with st.container(border=True, horizontal_alignment="center", vertical_alignment
             if city_info:
                 st.session_state.city = city_info[0]
                 st.session_state.country = city_info[1]
+                st.session_state.birth_day = birth_day.strftime("%DD.%MM.%YYYY")
                 st.login()
             else:
                 st.warning("City not found, try another one.")
