@@ -2,15 +2,7 @@ from langgraph.graph import StateGraph
 from langgraph.prebuilt import tools_condition
 from langgraph.constants import END
 
-from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
-
 from .agents import *
-
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-sql_url = os.getenv('SQL_URL')
 
 async def setup_workflow():
     agents = await create_agents()
@@ -25,8 +17,7 @@ async def setup_workflow():
         return {'next_node': answer.next_node, 'user_message': user_message}
 
     async def astro_node(state):
-        answer = await agents.astro_agent.ainvoke(state['messages'])
-        
+        answer = await agents.astro_agent.ainvoke({'messages': state['messages'], 'birth_day': state['birth_day'], 'time_birth': state['time_birth'], 'city': state['city'], 'country': state['country']})
         next_node = 'END'
         
         if answer.tool_calls:
@@ -79,7 +70,4 @@ async def setup_workflow():
 
     graph.add_edge('img_node', END)
     
-    async with AsyncPostgresSaver.from_conn_string(sql_url) as checkpointer:
-        workflow = graph.compile(checkpointer=checkpointer)
-    
-    return workflow
+    return graph.compile()

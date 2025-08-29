@@ -50,7 +50,7 @@ if prompt:
 if st.session_state.wait:  
     with st.status('Think...') as status:
         # Асинхронный запрос к FastAPI с чтением потока
-        with httpx.stream("POST", "http://127.0.0.1:8000/stream", json={"message": prompt, "user_id": st.user.sub}, timeout=None) as r:
+        with httpx.stream("POST", "http://127.0.0.1:8000/stream", json={"message": prompt, "user_id": st.user.sub, "country": st.session_state.country, "time_birth": st.session_state.time_birth, "birth_day": st.session_state.birth_day, "city": st.session_state.city}, timeout=None) as r:
             for chunk in r.iter_text():
                 temp = json.loads(chunk)
                 data = ExtractData.model_validate(temp)

@@ -1,8 +1,3 @@
-import asyncio
-import sys
-
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
@@ -10,13 +5,8 @@ from fastapi.responses import StreamingResponse
 from langchain_core.messages import HumanMessage
 from langchain_core.runnables import RunnableConfig
 
-from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
-
 from schemas import ExtractData, UserData
 from graph import *
-from dotenv import load_dotenv
-
-import os
 
 
 async def stream_agent(item: UserData):
@@ -26,7 +16,7 @@ async def stream_agent(item: UserData):
         }
     )
     
-    async for chunk in workflow.astream({'messages': [HumanMessage(item.message)], 'next_node': 'router_node'},
+    async for chunk in workflow.astream({'messages': [HumanMessage(item.message)], 'next_node': 'router_node', 'birth_day': item.birth_day, 'city': item.city, 'country': item.city, 'time_birth': item.time_birth},
                                  stream_mode='values', config=config):
         if chunk.get('taro_cards'):
             chunk['taro_cards'] = [card.model_dump() for card in chunk.get('taro_cards')]

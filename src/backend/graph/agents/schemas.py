@@ -21,6 +21,11 @@ class AgentState(MessagesState):
     message_to_user: str
     user_message: str
     
+    birth_day: str
+    time_birth: str
+    city: str
+    country: str
+    
 class ImgOutput(BaseModel):
     taro_cards: List[TaroCard] = Field(..., description='Fill this with name of taro card and reversed (bool)')
     

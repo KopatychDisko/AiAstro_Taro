@@ -17,3 +17,8 @@ class ExtractData(BaseModel):
 class UserData(BaseModel):
     message: str
     user_id: str
+    
+    birth_day: str
+    time_birth: str
+    city: str
+    country: str
