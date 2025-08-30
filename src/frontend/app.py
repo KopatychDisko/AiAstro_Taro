@@ -16,7 +16,7 @@ if not st.user.is_logged_in:
 set_data()
 
 st.set_page_config(page_title='AI Taro', page_icon='🔮')
-st.title("AI taro chat")
+st.title("AI taro chat 🔮")
     
 for msg in st.session_state.messages:
     avatar = st.session_state.user_avatar if msg['role'] == 'user' else st.session_state.bot_avatar
