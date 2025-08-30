@@ -67,7 +67,7 @@ def create_router_agent():
     return agent
 
 def create_img_agent():
-    llm = ChatOpenAI(model='openai/gpt-4o-mini-2024-07-18',base_url=base_url, temperature=0)
+    llm = ChatOpenAI(model='openai/gpt-5-mini',base_url=base_url, temperature=0)
     
     agent = img_prompt | llm.with_structured_output(ImgOutput)
     return agent
