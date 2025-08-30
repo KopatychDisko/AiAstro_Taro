@@ -5,8 +5,9 @@ geolocator = Nominatim(user_agent="geo_checker", timeout=10)
 
 def get_info_from_city(city_name):
     location = geolocator.geocode(city_name, language='en', exactly_one=True)
-    if not location:
+    if not location or location.raw.get('addresstype') != 'city':
         return None
+    
     
     country = location.raw['display_name'].split(', ')[-1]
     alpha_2 = pycountry.countries.search_fuzzy(country)[0].alpha_2

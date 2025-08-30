@@ -1,6 +1,6 @@
 from .model import SessionLocal, UserBirthInfo, Message
 
-def add_user(user_id, birth_date, birth_time=None, city=None, country=None):
+def add_user(user_id, birth_date, birth_time=None, city=None, country=None, language=None):
     try:
         session = SessionLocal()
         user = UserBirthInfo(
@@ -8,7 +8,8 @@ def add_user(user_id, birth_date, birth_time=None, city=None, country=None):
             birth_date=birth_date,
             birth_time=birth_time,
             city=city,
-            country=country
+            country=country,
+            language=language
         )
         session.add(user)
         session.commit()
@@ -33,7 +34,8 @@ def get_user(user_id):
                 'birth_date': user.birth_date,
                 'birth_time': user.birth_time,
                 'city': user.city,
-                'country': user.country
+                'country': user.country,
+                'language': user.language
             }
             return type('UserInfo', (), user_data)()  # Создаем объект с атрибутами
         return None
@@ -94,7 +96,7 @@ def get_last_messages(user_id, limit=10):
     finally:
         session.close()
 
-def update_user(user_id: str, birth_date = None, birth_time = None, city: str = None, country: str = None):
+def update_user(user_id: str, birth_date = None, birth_time = None, city: str = None, country: str = None, language=None):
     try:
         with SessionLocal() as session:
             user = session.query(UserBirthInfo).filter_by(user_id=user_id).first()
@@ -105,7 +107,8 @@ def update_user(user_id: str, birth_date = None, birth_time = None, city: str = 
                     birth_date=birth_date or "",
                     birth_time=birth_time,
                     city=city,
-                    country=country
+                    country=country,
+                    language=language
                 )
                 session.add(user)
             else:
@@ -118,6 +121,8 @@ def update_user(user_id: str, birth_date = None, birth_time = None, city: str = 
                     user.city = city
                 if country:
                     user.country = country
+                if language:
+                    user.language = language
             session.commit()
             session.refresh(user)  # Обновляем объект после коммита
             return user

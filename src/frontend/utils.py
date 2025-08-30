@@ -5,6 +5,8 @@ from datetime import date, time as dtime
 from pages.check_city import get_info_from_city
 from database.request import get_last_messages, get_user, update_user, add_user
 
+from locales import t
+
 today = date.today()
 thirteen_years_ago = today.replace(year=today.year - 13)
 
@@ -47,6 +49,7 @@ def set_data():
                 st.session_state.country = user_info.country
                 st.session_state.birth_day = user_info.birth_date
                 st.session_state.time_birth = user_info.birth_time
+                st.session_state.language = user_info.language
                 
                 # Отладочная информация
                 print(f"📥 Загружены данные пользователя: {user_info.user_id}")
@@ -79,17 +82,17 @@ def set_data():
 
 def create_form_with_info():
     with st.form(key="unique_info"):
-        city = st.text_input("Your city")
+        city = st.text_input(t('city_input'))
 
         birth_day = st.date_input(
-            "Your birthday",
+            t('birth_day_input'),
             format="DD.MM.YYYY",
             max_value=thirteen_years_ago,
             min_value=ninety_years_ago,
         )
 
         # Стримлит требует дефолт → ставим полночь
-        time_birth = st.time_input("Your time birth", value=dtime(0, 0))
+        time_birth = st.time_input(t('time_birth_input'), value=dtime(0, 0))
 
         submit = st.form_submit_button("Update data")
 

@@ -8,15 +8,19 @@ from templates import create_html_taro
 from utils import stream_text, set_data, create_form_with_info
 from database.request import add_message, get_user, get_last_messages
 
+from locales import t
 
 
 if not st.user.is_logged_in:
-    st.switch_page('pages/login_menu.py')
+    st.switch_page('login_menu.py')
     
 set_data()
 
-st.set_page_config(page_title='AI Taro', page_icon='🔮')
-st.title("AI taro chat 🔮")
+st.set_page_config(page_title=t('page_title_chat'), page_icon='🔮')
+st.title(t('chat_title'))
+
+if len(st.session_state.messages) > 7:
+    st.session_state.messages = st.session_state.messages[-6]
     
 for msg in st.session_state.messages:
     avatar = st.session_state.user_avatar if msg['role'] == 'user' else st.session_state.bot_avatar
@@ -26,22 +30,32 @@ for msg in st.session_state.messages:
         st.markdown(msg['content'])
         
 with st.sidebar:
-    st.title('Settings 🛠️')
+    st.title(t('sidebar_title'))
     
     st.divider()
     
-    st.subheader('User info')
+    st.session_state.lang = st.segmented_control(
+        label=t('language'),
+        label_visibility='hidden',
+        options=["en", "ru"],
+        selection_mode='single',
+        default=st.session_state.lang
+    )
+    
+    st.divider()
+    
+    st.subheader(t('user_info'))
     create_form_with_info()
     
     st.divider()
     
     
     if st.user.is_logged_in:
-        if st.button('Logout 😞'):
+        if st.button(t('logout_button')):
             st.logout()
     
     
-prompt = st.chat_input("Your query:", key='chat_input', disabled=st.session_state.wait)
+prompt = st.chat_input(t('chat_input'), key='chat_input', disabled=st.session_state.wait)
 
 if prompt:
     st.session_state.messages.append({'role': 'user', 'content': prompt})
@@ -56,7 +70,7 @@ if prompt:
     
         
 if st.session_state.wait:  
-    with st.status('Think...') as status:
+    with st.status(t('think')) as status:
         # Асинхронный запрос к FastAPI с чтением потока
         request_data = {
             "message": prompt, 
@@ -75,15 +89,15 @@ if st.session_state.wait:
                 next_node = data.next_node
                 
                 if next_node == 'taro_node':
-                    status.update(label='Перемешиваю карты', state='running')
+                    status.update(label=t('status_taro_node'), state='running')
                 elif next_node == 'taro_tool':
-                    status.update(label='Что говорят карты о тебе...', state='running')
+                    status.update(label=t('status_taro_tool'), state='running')
                 elif next_node == 'astro_node':
-                    status.update(label='Смотрю на звезды', state='running')
+                    status.update(label=t('status_astro_node'), state='running')
                 elif next_node == 'img_node':
-                    status.update(label='Выкладываю карты на стол', state='running')
+                    status.update(label=t('status_img_node'), state='running')
                 elif next_node == 'END':
-                    status.update(label='Ты готов(a) узнать свою судьбу', state='complete')
+                    status.update(label=t('status_end'), state='complete')
                     
                     st.session_state.ai_msg = data.message_to_user
                     

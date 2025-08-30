@@ -43,6 +43,7 @@ class UserBirthInfo(Base):
     birth_time: Mapped[str] = mapped_column(String(50), nullable=True)
     city: Mapped[str] = mapped_column(String(50), nullable=True)
     country: Mapped[str] = mapped_column(String(50), nullable=True)
+    language: Mapped[str] = mapped_column(String(5), nullable=False)
 
     messages = relationship("Message", back_populates="user", cascade="all, delete-orphan")
 
