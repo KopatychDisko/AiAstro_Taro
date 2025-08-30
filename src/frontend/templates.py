@@ -12,45 +12,6 @@ def create_git_url_images(tarot_photo: list):
 def render_celtic_cross(cards):
     cards_data = create_git_url_images(cards)
 
-    # исходные позиции
-    positions = [
-        (220, 300), (220, 300), (400, 300), (40, 300),
-        (220, 180), (220, 420), (40, 550), (120, 550),
-        (200, 550), (280, 550)
-    ]
-    
-    # сдвиг всех карт влево на 100px
-    dx = 100
-    positions = [(top, left - dx) for top, left in positions]
-
-    html_code = '<div class="celtic-cross" style="position:relative; width:800px; height:600px;">'
-    for i, card in enumerate(cards_data):
-        top, left = positions[i]
-        transform = "rotate(90deg)" if i == 1 else ("rotate(180deg)" if card["reversed"] else "none")
-        html_code += f"""
-        <div style="
-            position:absolute;
-            top:{top}px;
-            left:{left}px;
-            width:120px;
-            height:180px;
-            border-radius:10px;
-            overflow:hidden;
-            box-shadow:0 4px 8px rgba(0,0,0,0.25);
-            transform:{transform};
-        ">
-            <img src="{card['img']}" style="width:100%; height:100%; object-fit:contain;">
-        </div>
-        """
-    html_code += '</div>'
-
-    st.components.v1.html(html_code, height=650)
-    
-    return html_code
-    
-def render_celtic_cross(cards):
-    cards_data = create_git_url_images(cards)
-
     # исходные позиции в процентах (от ширины и высоты контейнера)
     positions = [
         (50, 50), (50, 50), (50, 70), (50, 10),
@@ -93,6 +54,27 @@ def render_celtic_cross(cards):
     st.components.v1.html(html_code, height=650)
     return html_code
 
+    
+def render_three_card(cards):
+    """
+    cards: список из 3 карт, каждая {"name": str, "reversed": bool}
+    """
+    cards_data = create_git_url_images(cards)
+    positions = [(200, 100), (200, 250), (200, 400)]  # top, left для каждой карты
+
+    html_code = '<div class="three-card" style="position:relative; width:600px; height:400px;">'
+    for i, card in enumerate(cards_data):
+        top, left = positions[i]
+        transform = "rotate(180deg)" if card["reversed"] else "none"
+        html_code += f"""
+        <div style="position:absolute; top:{top}px; left:{left}px; width:120px; height:180px; border-radius:10px; overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.25); transform:{transform};">
+            <img src="{card['img']}" style="width:100%; height:100%; object-fit:contain;">
+        </div>
+        """
+    html_code += '</div>'
+    st.components.v1.html(html_code, height=400)
+    
+    return html_code
 
     
 def render_horseshoe(cards):
