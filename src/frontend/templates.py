@@ -48,26 +48,51 @@ def render_celtic_cross(cards):
     
     return html_code
     
-def render_three_card(cards):
-    """
-    cards: список из 3 карт, каждая {"name": str, "reversed": bool}
-    """
+def render_celtic_cross(cards):
     cards_data = create_git_url_images(cards)
-    positions = [(200, 100), (200, 250), (200, 400)]  # top, left для каждой карты
 
-    html_code = '<div class="three-card" style="position:relative; width:600px; height:400px;">'
+    # исходные позиции в процентах (от ширины и высоты контейнера)
+    positions = [
+        (50, 50), (50, 50), (50, 70), (50, 10),
+        (30, 50), (70, 50), (90, 10), (90, 20),
+        (90, 30), (90, 40)
+    ]
+    
+    html_code = '''
+    <div class="celtic-cross" style="
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        aspect-ratio: 4/3;
+        margin: 0 auto;
+    ">
+    '''
+    
     for i, card in enumerate(cards_data):
-        top, left = positions[i]
-        transform = "rotate(180deg)" if card["reversed"] else "none"
+        top_pct, left_pct = positions[i]
+        transform = "rotate(90deg)" if i == 1 else ("rotate(180deg)" if card["reversed"] else "none")
+        
         html_code += f"""
-        <div style="position:absolute; top:{top}px; left:{left}px; width:120px; height:180px; border-radius:10px; overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.25); transform:{transform};">
+        <div style="
+            position:absolute;
+            top:{top_pct}%;
+            left:{left_pct}%;
+            width:15%;
+            aspect-ratio: 2/3;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 4px 8px rgba(0,0,0,0.25);
+            transform:{transform};
+        ">
             <img src="{card['img']}" style="width:100%; height:100%; object-fit:contain;">
         </div>
         """
+
     html_code += '</div>'
-    st.components.v1.html(html_code, height=400)
-    
+
+    st.components.v1.html(html_code, height=650)
     return html_code
+
 
     
 def render_horseshoe(cards):
