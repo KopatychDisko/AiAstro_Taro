@@ -35,28 +35,7 @@ def set_data():
     print(f"🔍 set_data() вызвана для пользователя: {user_id}")
     
     if "messages" not in st.session_state:
-        try:
-            db_messages = get_last_messages(user_id)
-            # Конвертируем объекты SQLAlchemy в словари для Streamlit
-            st.session_state.messages = []
-            for msg in db_messages:
-                # Получаем данные до закрытия сессии
-                role = 'user' if msg.sender == 'user' else 'ai'
-                content = msg.text or msg.html or ''
-                st.session_state.messages.append({
-                    'role': role,
-                    'content': content,
-                    'cards': None,  # Карты не сохраняются в БД
-                    'unlock_name': None
-                })
-        except Exception as e:
-            print(f"Error loading messages: {e}")
-            st.session_state.messages = [
-                {'role': 'ai',
-                 'content': '''Прежде чем начать заполни информацию о себе
-                 Форма для заполнения слева 👈'''
-                }
-            ]
+        st.session_state.messages = []
             
     if 'city' not in st.session_state:
         try:

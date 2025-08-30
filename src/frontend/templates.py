@@ -12,7 +12,7 @@ def create_git_url_images(tarot_photo: list):
 def render_celtic_cross(cards):
     cards_data = create_git_url_images(cards)
 
-    # исходные позиции в процентах (от ширины и высоты контейнера)
+    # позиции карт в процентах (top%, left%)
     positions = [
         (50, 50), (50, 50), (50, 70), (50, 10),
         (30, 50), (70, 50), (90, 10), (90, 20),
@@ -51,7 +51,8 @@ def render_celtic_cross(cards):
 
     html_code += '</div>'
 
-    st.components.v1.html(html_code, height=650)
+    # убираем фиксированную высоту, чтобы адаптировалось
+    st.components.v1.html(html_code, height=600)  
     return html_code
 
     
