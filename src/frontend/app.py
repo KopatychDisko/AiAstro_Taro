@@ -63,7 +63,7 @@ if st.session_state.wait:
             "user_id": st.user.sub, 
             "country": st.session_state.country, 
             "time_birth": st.session_state.time_birth, 
-            "birth_day": st.session_state.birth_day, 
+            "birth_date": st.session_state.birth_date, 
             "city": st.session_state.city
         }
         
