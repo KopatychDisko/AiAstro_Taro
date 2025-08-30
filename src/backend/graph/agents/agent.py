@@ -11,7 +11,7 @@ from .schemas import RouterOutput, ImgOutput, Agents, UnlockCard
 import os
 
 async def create_tarot_agent():
-    llm = ChatOpenAI(base_url=base_url, model='openai/gpt-5-nano', temperature=0.2)
+    llm = ChatOpenAI(base_url=base_url, model='openai/gpt-5-mini', temperature=0.2)
     
     tarot_mcp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../tarotmcp/dist/index.js"))
     
@@ -36,7 +36,7 @@ async def create_tarot_agent():
 
 
 async def create_astro_agent():
-    llm = ChatOpenAI(model='openai/gpt-4.1-nano',base_url=base_url, temperature=0.7)
+    llm = ChatOpenAI(model='openai/gpt-5-mini',base_url=base_url, temperature=0.7)
     
     astro_mcp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../astromcp/dist/main.js"))
     
