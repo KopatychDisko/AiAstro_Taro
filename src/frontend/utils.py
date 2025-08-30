@@ -66,7 +66,7 @@ def set_data():
                 # Получаем данные до закрытия сессии
                 st.session_state.city = user_info.city
                 st.session_state.country = user_info.country
-                st.session_state.birth_date = user_info.birth_date
+                st.session_state.birth_day = user_info.birth_date
                 st.session_state.time_birth = user_info.birth_time
                 
                 # Отладочная информация
