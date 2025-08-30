@@ -3,6 +3,7 @@ import time
 import httpx
 from datetime import date, time as dtime
 from pages.check_city import get_info_from_city
+from database.request import get_last_messages, get_user, update_user, add_user
 
 today = date.today()
 thirteen_years_ago = today.replace(year=today.year - 13)
@@ -30,8 +31,54 @@ def stream_text(text, delay=0.01):
 
 
 def set_data():
+    user_id = str(st.user.sub)
+    print(f"🔍 set_data() вызвана для пользователя: {user_id}")
+    
     if "messages" not in st.session_state:
-        st.session_state.messages = []
+        try:
+            db_messages = get_last_messages(user_id)
+            # Конвертируем объекты SQLAlchemy в словари для Streamlit
+            st.session_state.messages = []
+            for msg in db_messages:
+                # Получаем данные до закрытия сессии
+                role = 'user' if msg.sender == 'user' else 'ai'
+                content = msg.text or msg.html or ''
+                st.session_state.messages.append({
+                    'role': role,
+                    'content': content,
+                    'cards': None,  # Карты не сохраняются в БД
+                    'unlock_name': None
+                })
+        except Exception as e:
+            print(f"Error loading messages: {e}")
+            st.session_state.messages = [
+                {'role': 'ai',
+                 'content': '''Прежде чем начать заполни информацию о себе
+                 Форма для заполнения слева 👈'''
+                }
+            ]
+            
+    if 'city' not in st.session_state:
+        try:
+            user_info = get_user(user_id)
+            
+            if user_info:
+                # Получаем данные до закрытия сессии
+                st.session_state.city = user_info.city
+                st.session_state.country = user_info.country
+                st.session_state.birth_date = user_info.birth_date
+                st.session_state.time_birth = user_info.birth_time
+                
+                # Отладочная информация
+                print(f"📥 Загружены данные пользователя: {user_info.user_id}")
+                print(f"   Город: {user_info.city}")
+                print(f"   Страна: {user_info.country}")
+                print(f"   Дата рождения: {user_info.birth_date}")
+                print(f"   Время рождения: {user_info.birth_time}")
+            else:
+                print(f"❌ Пользователь {user_id} не найден в базе данных")
+        except Exception as e:
+            print(f"Error loading user info: {e}")
 
     if "wait" not in st.session_state:
         st.session_state.wait = False
@@ -40,9 +87,12 @@ def set_data():
         st.session_state.ai_msg = ""
 
     if "user_avatar" not in st.session_state and hasattr(st, "user") and st.user.picture:
-        user_avatar_url = st.user.picture
-        r = httpx.get(user_avatar_url)
-        st.session_state.user_avatar = r.content
+        try:
+            user_avatar_url = st.user.picture
+            r = httpx.get(user_avatar_url)
+            st.session_state.user_avatar = r.content
+        except Exception as e:
+            print(f"Error loading avatar: {e}")
 
     if "bot_avatar" not in st.session_state:
         st.session_state.bot_avatar = "images/bot_avatar.png"
@@ -70,11 +120,14 @@ def create_form_with_info():
             if is_age_ok(birth_day) and city_info:
                 st.session_state.city = city_info[0]
                 st.session_state.country = city_info[1]
-                st.session_state.birth_day = birth_day.strftime("%DD.%MM.%YYYY")
+                st.session_state.birth_day = birth_day.strftime("%d.%m.%Y")
                 st.session_state.time_birth = time_birth.strftime("%H:%M")
 
                 st.success("New data add successfully!")
+                
+                try:
+                    update_user(str(st.user.sub), st.session_state.birth_day, st.session_state.time_birth, st.session_state.city, st.session_state.country)
+                except Exception as e:
+                    add_user(str(st.user.sub), st.session_state.birth_day, st.session_state.time_birth, st.session_state.city, st.session_state.country)
             else:
                 st.warning("Fill all fields or change birth day!")
-
-    

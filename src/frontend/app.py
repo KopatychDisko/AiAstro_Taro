@@ -6,10 +6,13 @@ from schema import *
 from templates import create_html_taro
 
 from utils import stream_text, set_data, create_form_with_info
+from database.request import add_message, get_user, get_last_messages
+
+
 
 if not st.user.is_logged_in:
     st.switch_page('pages/login_menu.py')
-            
+    
 set_data()
 
 st.set_page_config(page_title='AI Taro', page_icon='🔮')
@@ -32,6 +35,7 @@ with st.sidebar:
     
     st.divider()
     
+    
     if st.user.is_logged_in:
         if st.button('Logout 😞'):
             st.logout()
@@ -43,6 +47,10 @@ if prompt:
     st.session_state.messages.append({'role': 'user', 'content': prompt})
     with st.chat_message("user", avatar=st.session_state.user_avatar):
         st.markdown(prompt)
+        try:
+            add_message(st.user.sub, 'user', prompt)
+        except Exception as e:
+            st.error(f"Error saving message: {e}")
         
     st.session_state.wait = True
     
@@ -50,7 +58,16 @@ if prompt:
 if st.session_state.wait:  
     with st.status('Think...') as status:
         # Асинхронный запрос к FastAPI с чтением потока
-        with httpx.stream("POST", "http://127.0.0.1:8000/stream", json={"message": prompt, "user_id": st.user.sub, "country": st.session_state.country, "time_birth": st.session_state.time_birth, "birth_day": st.session_state.birth_day, "city": st.session_state.city}, timeout=None) as r:
+        request_data = {
+            "message": prompt, 
+            "user_id": st.user.sub, 
+            "country": st.session_state.country, 
+            "time_birth": st.session_state.time_birth, 
+            "birth_day": st.session_state.birth_day, 
+            "city": st.session_state.city
+        }
+        
+        with httpx.stream("POST", "http://127.0.0.1:8000/stream", json=request_data, timeout=None) as r:
             for chunk in r.iter_text():
                 temp = json.loads(chunk)
                 data = ExtractData.model_validate(temp)
@@ -77,10 +94,14 @@ if st.session_state.wait:
     
     with st.chat_message('ai', avatar=st.session_state.bot_avatar):
         if st.session_state.cards:
-            create_html_taro(st.session_state.cards, 
+            html_code = create_html_taro(st.session_state.cards, 
                             st.session_state.unlock_name)
+            try:
+                add_message(st.user.sub, 'bot', st.session_state.ai_msg, html_code)
+            except Exception as e:
+                st.error(f"Error saving bot message: {e}")
+            
         st.write_stream(stream_text(st.session_state.ai_msg))
-        
     st.session_state.cards = None
     st.session_state.wait = False
     

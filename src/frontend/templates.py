@@ -46,6 +46,8 @@ def render_celtic_cross(cards):
 
     st.components.v1.html(html_code, height=650)
     
+    return html_code
+    
 def render_three_card(cards):
     """
     cards: список из 3 карт, каждая {"name": str, "reversed": bool}
@@ -64,6 +66,8 @@ def render_three_card(cards):
         """
     html_code += '</div>'
     st.components.v1.html(html_code, height=400)
+    
+    return html_code
 
     
 def render_horseshoe(cards):
@@ -106,6 +110,8 @@ def render_horseshoe(cards):
     html_code += '</div>'
     st.components.v1.html(html_code, height=300)
     
+    return html_code
+    
 def render_relationship(cards):
     """
     cards: список из 7 карт, каждая {"name": str, "reversed": bool}
@@ -147,6 +153,8 @@ def render_relationship(cards):
 
     html_code += '</div>'
     st.components.v1.html(html_code, height=500)
+    
+    return html_code
 
 def render_career_path(cards):
     """
@@ -187,7 +195,9 @@ def render_career_path(cards):
 
     html_code += '</div>'
 
-    st.components.v1.html(html_code, height=550)  # добавил запас по высоте
+    st.components.v1.html(html_code, height=550)
+    
+    return html_code
 
 
 
@@ -231,7 +241,8 @@ def render_decision_making(cards):
     html_code += '</div>'
     st.components.v1.html(html_code, height=450)
     
-import streamlit as st
+    return html_code
+    
 
 def render_year_ahead(cards):
     """
@@ -286,9 +297,9 @@ def render_year_ahead(cards):
 
     html_code += '</div>'
     st.components.v1.html(html_code, height=300)
+    
+    return html_code
 
-
-import streamlit as st
 
 def render_spiritual(cards):
     """
@@ -328,8 +339,8 @@ def render_spiritual(cards):
 
     html_code += '</div>'
     st.components.v1.html(html_code, height=350)
-
-import streamlit as st
+    
+    return html_code
 
 def render_chakra(cards):
     """
@@ -375,6 +386,8 @@ def render_chakra(cards):
 
     html_code += '</div>'
     st.components.v1.html(html_code, height=900)
+    
+    return html_code
 
 def render_shadow(cards):
     """
@@ -419,6 +432,8 @@ def render_shadow(cards):
     html_code += '</div>'
     st.components.v1.html(html_code, height=200)
     
+    return html_code
+    
 def render_single_card(cards):
     """
     cards — список из 1 карты с ключами: {'img': str, 'reversed': bool}
@@ -444,6 +459,8 @@ def render_single_card(cards):
     </div>
     """
     st.components.v1.html(html_code, height=300)
+    
+    return html_code
     
 tarot_spreads = {
     "Single Card": render_single_card,          # 1 карта — быстрые инсайты
