@@ -5,7 +5,7 @@ geolocator = Nominatim(user_agent="geo_checker", timeout=10)
 
 def get_info_from_city(city_name):
     location = geolocator.geocode(city_name, language='en', exactly_one=True)
-    if not location or location.raw.get('addresstype') != 'city':
+    if not location or location.raw.get('type') != 'administrative':
         return None
     
     
@@ -15,3 +15,7 @@ def get_info_from_city(city_name):
     city = location.raw['display_name'].split(', ')[0]
     
     return city, alpha_2
+
+if __name__ == '__main__':
+    location = geolocator.geocode('Москва', language='en', exactly_one=True)
+    print(location.raw)
