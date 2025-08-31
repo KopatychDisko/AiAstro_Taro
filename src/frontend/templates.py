@@ -50,9 +50,7 @@ def render_celtic_cross(cards):
         """
 
     html_code += '</div>'
-
-    # убираем фиксированную высоту, чтобы адаптировалось
-    st.components.v1.html(html_code, height=600)  
+  
     return html_code
 
     

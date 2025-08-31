@@ -5,6 +5,8 @@ from datetime import date, time as dtime
 from check_city import get_info_from_city
 from database.request import get_last_messages, get_user, update_user, add_user
 
+import datetime
+
 from locales import t
 
 today = date.today()
@@ -42,7 +44,7 @@ def set_data():
         except:
             st.session_state.messages = []
             
-    if 'city' not in st.session_state:
+    if 'city' not in st.session_state or 'country' not in st.session_state:
         try:
             user_info = get_user(user_id)
             
@@ -85,17 +87,20 @@ def set_data():
 
 def create_form_with_info():
     with st.form(key="unique_info"):
-        city = st.text_input(t('city_input'))
+        city = st.text_input(t('city_input'), value=st.session_state.city)
 
         birth_day = st.date_input(
             t('birth_day_input'),
             format="DD.MM.YYYY",
             max_value=thirteen_years_ago,
             min_value=ninety_years_ago,
+            value=datetime.strptime(st.session_state.birth_day, "%d.%m.%Y").date()
+            
         )
 
         # Стримлит требует дефолт → ставим полночь
-        time_birth = st.time_input(t('time_birth_input'), value=dtime(0, 0))
+        time_birth_value = datetime.strptime(st.session_state.time_birth, "%H:%M").time()
+        time_birth = st.time_input(t('time_birth_input'), value=time_birth_value)
 
         submit = st.form_submit_button(t('update_data'))
 

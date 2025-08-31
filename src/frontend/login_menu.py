@@ -18,7 +18,7 @@ with col2:
     )
     
 
-if st.user.is_logged_in:
+if st.user.get('is_logged_in'):
     st.switch_page('pages/user_info.py')
 
 st.set_page_config(page_title=t("page_title"), page_icon="⚙️")
