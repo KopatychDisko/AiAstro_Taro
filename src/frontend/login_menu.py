@@ -7,6 +7,7 @@ if "lang" not in st.session_state:
     
 col1, col2 = st.columns([5, 1])
 
+
 with col2:
     st.session_state.lang = st.segmented_control(
         label='language',

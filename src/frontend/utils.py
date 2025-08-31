@@ -2,7 +2,7 @@ import streamlit as st
 import time
 import httpx
 from datetime import date, time as dtime
-from pages.check_city import get_info_from_city
+from check_city import get_info_from_city
 from database.request import get_last_messages, get_user, update_user, add_user
 
 from locales import t
@@ -37,7 +37,10 @@ def set_data():
     print(f"🔍 set_data() вызвана для пользователя: {user_id}")
     
     if "messages" not in st.session_state:
-        st.session_state.messages = []
+        try:
+            st.session_state.messages = get_last_messages(user_id, 6)
+        except:
+            st.session_state.messages = []
             
     if 'city' not in st.session_state:
         try:
@@ -49,7 +52,7 @@ def set_data():
                 st.session_state.country = user_info.country
                 st.session_state.birth_day = user_info.birth_date
                 st.session_state.time_birth = user_info.birth_time
-                st.session_state.language = user_info.language
+                st.session_state.lang = user_info.language
                 
                 # Отладочная информация
                 print(f"📥 Загружены данные пользователя: {user_info.user_id}")
@@ -94,7 +97,7 @@ def create_form_with_info():
         # Стримлит требует дефолт → ставим полночь
         time_birth = st.time_input(t('time_birth_input'), value=dtime(0, 0))
 
-        submit = st.form_submit_button("Update data")
+        submit = st.form_submit_button(t('update_data'))
 
         if submit:
             city_info = get_info_from_city(city) if city else None
@@ -105,11 +108,11 @@ def create_form_with_info():
                 st.session_state.birth_day = birth_day.strftime("%d.%m.%Y")
                 st.session_state.time_birth = time_birth.strftime("%H:%M")
 
-                st.success("New data add successfully!")
+                st.success(t('new_data'))
                 
                 try:
                     update_user(str(st.user.sub), st.session_state.birth_day, st.session_state.time_birth, st.session_state.city, st.session_state.country)
                 except Exception as e:
                     add_user(str(st.user.sub), st.session_state.birth_day, st.session_state.time_birth, st.session_state.city, st.session_state.country)
             else:
-                st.warning("Fill all fields or change birth day!")
+                st.warning(t('fields_warning'))

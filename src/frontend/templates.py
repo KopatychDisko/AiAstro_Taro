@@ -151,15 +151,15 @@ def render_relationship(cards):
     """
     cards_data = create_git_url_images(cards)
 
-    # Позиции карт в процентах (top%, left%)
+    # Новые позиции карт (top%, left%)
     positions = [
-        (20, 15),   # 1: партнер
-        (20, 85),   # 2: себя
-        (40, 50),   # 3: сила отношений (центр)
-        (60, 50),   # 4: проблемы
-        (80, 15),   # 5: совет
-        (80, 85),   # 6: внешние влияния
-        (95, 50),   # 7: итог
+        (10, 20),   # 1: партнер
+        (10, 70),   # 2: себя
+        (35, 45),   # 3: сила отношений (центр)
+        (55, 45),   # 4: проблемы
+        (75, 20),   # 5: совет
+        (75, 70),   # 6: внешние влияния
+        (65, 45),   # 7: итог (чуть ниже центра)
     ]
 
     html_code = '''
@@ -181,11 +181,9 @@ def render_relationship(cards):
             position:absolute;
             top:{top_pct}%;
             left:{left_pct}%;
-            width:18%;
+            width:20%;
             aspect-ratio: 2/3;
-            border-radius:10px;
             overflow:hidden;
-            box-shadow:0 4px 8px rgba(0,0,0,0.25);
             transform:{transform};
         ">
             <img src="{card['img']}" style="width:100%; height:100%; object-fit:contain;">
@@ -193,8 +191,9 @@ def render_relationship(cards):
         """
 
     html_code += '</div>'
-    st.components.v1.html(html_code, height=500)  # высота компонента Streamlit
+    st.components.v1.html(html_code, height=450)  # уменьшил высоту
     return html_code
+
 
 
 def render_career_path(cards):
@@ -256,21 +255,21 @@ def render_decision_making(cards):
     """
     cards_data = create_git_url_images(cards)
 
-    # Позиции карт в процентах (top%, left%)
+    # Более компактные позиции карт (top%, left%)
     positions = [
-        (20, 15),   # 1: Вариант A
-        (20, 55),   # 2: Вариант B
-        (50, 15),   # 3: Преимущества/риски
-        (50, 55),   # 4: Совет
-        (80, 35),   # 5: Итог/решение
+        (10, 20),   # 1: Вариант A
+        (10, 60),   # 2: Вариант B
+        (40, 20),   # 3: Преимущества/риски
+        (40, 60),   # 4: Совет
+        (65, 40),   # 5: Итог/решение (поднял выше)
     ]
 
     html_code = '''
     <div class="decision-making" style="
         position: relative;
         width: 100%;
-        max-width: 650px;
-        aspect-ratio: 13/9;
+        max-width: 600px;
+        aspect-ratio: 4/5;   /* более вертикально, чтобы все влезло */
         margin: 0 auto;
     ">
     '''
@@ -284,11 +283,9 @@ def render_decision_making(cards):
             position:absolute;
             top:{top_pct}%;
             left:{left_pct}%;
-            width:18%;
+            width:20%;
             aspect-ratio: 2/3;
-            border-radius:10px;
             overflow:hidden;
-            box-shadow:0 4px 8px rgba(0,0,0,0.25);
             transform:{transform};
         ">
             <img src="{card['img']}" style="width:100%; height:100%; object-fit:contain;">
@@ -297,10 +294,11 @@ def render_decision_making(cards):
 
     html_code += '</div>'
 
-    # Высота компонента Streamlit, контейнер масштабируется
-    st.components.v1.html(html_code, height=450)
+    # Высота компонента Streamlit уменьшена
+    st.components.v1.html(html_code, height=400)
 
     return html_code
+
     
 
 def render_year_ahead(cards):
@@ -313,16 +311,16 @@ def render_year_ahead(cards):
     <div class="year-ahead" style="
         position: relative;
         width: 100%;
-        max-width: 1400px;
-        aspect-ratio: 14/3;
+        max-width: 1000px;
+        aspect-ratio: 4/1;  /* более компактное соотношение */
         margin: 0 auto;
     ">
     '''
 
     # карты месяцев (12 карт)
     for i in range(12):
-        top_pct = 30
-        left_pct = 5 + i * 7  # примерно равномерно распределяем по ширине
+        top_pct = 40  # ближе к центру
+        left_pct = 2 + i * 7  # плотнее друг к другу
         card = cards_data[i]
         transform = "rotate(180deg)" if card["reversed"] else "none"
 
@@ -333,19 +331,17 @@ def render_year_ahead(cards):
             left:{left_pct}%;
             width:6%;
             aspect-ratio: 5/8;
-            border-radius:10px;
             overflow:hidden;
-            box-shadow:0 4px 8px rgba(0,0,0,0.25);
             transform:{transform};
         ">
             <img src="{card['img']}" style="width:100%; height:100%; object-fit:contain;">
         </div>
         """
 
-    # итоговая карта года
+    # итоговая карта года (центральная, чуть больше)
     card = cards_data[12]
     top_pct = 5
-    left_pct = 45
+    left_pct = 42
     transform = "rotate(180deg)" if card["reversed"] else "none"
 
     html_code += f"""
@@ -353,12 +349,11 @@ def render_year_ahead(cards):
         position:absolute;
         top:{top_pct}%;
         left:{left_pct}%;
-        width:8%;
+        width:12%;
         aspect-ratio: 2/3;
-        border-radius:10px;
         overflow:hidden;
-        box-shadow:0 4px 8px rgba(0,0,0,0.25);
         transform:{transform};
+        z-index:10;
     ">
         <img src="{card['img']}" style="width:100%; height:100%; object-fit:contain;">
     </div>
@@ -366,8 +361,8 @@ def render_year_ahead(cards):
 
     html_code += '</div>'
 
-    # высота компонента Streamlit, контейнер масштабируется по ширине
-    st.components.v1.html(html_code, height=300)
+    # делаем меньше высоту (адаптивный контейнер)
+    st.components.v1.html(html_code, height=250)
 
     return html_code
 

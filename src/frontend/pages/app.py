@@ -6,7 +6,7 @@ from schema import *
 from templates import create_html_taro
 
 from utils import stream_text, set_data, create_form_with_info
-from database.request import add_message, get_user, get_last_messages
+from database.request import add_message
 
 from locales import t
 
@@ -16,24 +16,8 @@ if not st.user.is_logged_in:
     
 set_data()
 
-st.set_page_config(page_title=t('page_title_chat'), page_icon='🔮')
-st.title(t('chat_title'))
-
-if len(st.session_state.messages) > 7:
-    st.session_state.messages = st.session_state.messages[-6]
-    
-for msg in st.session_state.messages:
-    avatar = st.session_state.user_avatar if msg['role'] == 'user' else st.session_state.bot_avatar
-    with st.chat_message(msg['role'], avatar=avatar):
-        if msg.get('cards'):
-            create_html_taro(msg['cards'], msg['unlock_name'])
-        st.markdown(msg['content'])
-        
-with st.sidebar:
-    st.title(t('sidebar_title'))
-    
-    st.divider()
-    
+col_1, col_2 = st.columns([5, 1])
+with col_2:
     st.session_state.lang = st.segmented_control(
         label=t('language'),
         label_visibility='hidden',
@@ -41,6 +25,20 @@ with st.sidebar:
         selection_mode='single',
         default=st.session_state.lang
     )
+
+st.set_page_config(page_title=t('page_title_chat'), page_icon='🔮')
+st.title(t('chat_title'))
+
+    
+for msg in st.session_state.messages:
+    avatar = st.session_state.user_avatar if msg['role'] == 'user' else st.session_state.bot_avatar
+    with st.chat_message(msg['role'], avatar=avatar):
+        if msg.get('cards'):
+            create_html_taro(msg['cards'], msg['unlock_name'])    
+        st.markdown(msg['content'])
+        
+with st.sidebar:
+    st.title(t('sidebar_title'))
     
     st.divider()
     
@@ -107,15 +105,12 @@ if st.session_state.wait:
                     st.session_state.messages.append({'role': 'ai', 'content': st.session_state.ai_msg, 'cards': st.session_state.cards, 'unlock_name': st.session_state.unlock_name})
     
     with st.chat_message('ai', avatar=st.session_state.bot_avatar):
-        if st.session_state.get('cards'):
+        if 'cards' in st.session_state:
             html_code = create_html_taro(st.session_state.cards, 
                             st.session_state.unlock_name)
-            try:
-                add_message(st.user.sub, 'bot', st.session_state.ai_msg, html_code)
-            except Exception as e:
-                st.error(f"Error saving bot message: {e}")
-            
+        add_message(st.user.sub, 'bot', st.session_state.ai_msg)
         st.write_stream(stream_text(st.session_state.ai_msg))
+        
     st.session_state.cards = None
     st.session_state.wait = False
     

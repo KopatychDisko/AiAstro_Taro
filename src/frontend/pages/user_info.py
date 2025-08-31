@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import date
-from pages.check_city import get_info_from_city
+from check_city import get_info_from_city
 from database.request import add_user, update_user, get_user
 
 from locales import t
@@ -56,6 +56,7 @@ with col2:
     )
     
     st.session_state.lang = lang
+    
     
 if get_user(str(st.user.sub)):
     st.switch_page('pages/app.py')

@@ -81,15 +81,11 @@ def get_last_messages(user_id, limit=10):
         messages_data = []
         for msg in msgs:
             msg_data = {
-                'id': msg.id,
-                'user_id': msg.user_id,
-                'sender': msg.sender,
-                'text': msg.text,
-                'html': msg.html,
-                'created_at': msg.created_at
+                'role': msg.sender,
+                'content': msg.text,
             }
-            messages_data.append(type('MessageInfo', (), msg_data)())  # Создаем объект с атрибутами
-        return messages_data
+            messages_data.append(msg_data)  # Создаем объект с атрибутами
+        return list(reversed(messages_data))
     except Exception as e:
         print(f"Error getting messages: {e}")
         return []

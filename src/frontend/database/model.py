@@ -38,7 +38,7 @@ class UserBirthInfo(Base):
     __tablename__ = "user_birth_info"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(String(50), nullable=False)
+    user_id: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
     birth_date: Mapped[str] = mapped_column(String(50), nullable=False)
     birth_time: Mapped[str] = mapped_column(String(50), nullable=True)
     city: Mapped[str] = mapped_column(String(50), nullable=True)
