@@ -105,7 +105,7 @@ if st.session_state.wait:
                     st.session_state.messages.append({'role': 'ai', 'content': st.session_state.ai_msg, 'cards': st.session_state.cards, 'unlock_name': st.session_state.unlock_name})
     
     with st.chat_message('ai', avatar=st.session_state.bot_avatar):
-        if 'cards' in st.session_state:
+        if st.session_state.get('cards'):
             html_code = create_html_taro(st.session_state.cards, 
                             st.session_state.unlock_name)
         add_message(st.user.sub, 'bot', st.session_state.ai_msg)
