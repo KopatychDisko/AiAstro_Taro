@@ -3,7 +3,7 @@ import streamlit as st
 translations = {
     "en": {
         "language": "Language",
-        "page_title": "Registration",
+        "page_title": "AI Taro",
         "title": "Welcome to AI Taro! 🔮",
         "caption_first": (
             "✨ Welcome to Your AI-Tarot & Natal Chart Experience ✨\n\n"
@@ -55,7 +55,7 @@ translations = {
     "ru": 
     {
         "language": "Язык",
-        "page_title": "Регистрация",
+        "page_title": "AI Таро",
         "title": "Добро пожаловать в AI Таро! 🔮",
         "caption_first": (
             "✨ Добро пожаловать в Ваш опыт AI-Таро и Натальной Карты ✨\n\n"
