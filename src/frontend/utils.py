@@ -132,13 +132,16 @@ def create_form_with_info():
                 st.warning(t('fields_warning'))
                 
 def create_user_zep():
-    zep.user.add(
-        user_id=str(st.user.sub),
-        first_name=st.user.given_name,
-        email=st.user.email,
-    )
-    
-    zep.thread.create(
-        thread_id=str(st.user.sub),
-        user_id=str(st.user.sub)
-    )
+    try:
+        zep.user.add(
+            user_id=str(st.user.sub),
+            first_name=st.user.given_name,
+            email=st.user.email,
+        )
+        
+        zep.thread.create(
+            thread_id=str(st.user.sub),
+            user_id=str(st.user.sub)
+        )
+    except:
+        print(f'User_id {str(st.user.sub)} already exist')
