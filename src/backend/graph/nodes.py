@@ -71,9 +71,11 @@ async def setup_workflow():
     async def add_memory(state, config: RunnableConfig):
         session_id = config['configurable']["thread_id"]
         
+        answer = await agents.summarize_agent.ainvoke({'user_message': state['user_message'], 'message_to_user': state['message_to_user']})
+        
         messages_to_save = [
-            Message(role='user', name=state['name'], content=state['user_message']),
-            Message(role='assistant', content=state['message_to_user']),
+            Message(role='user', name=state['name'], content=answer.user_message),
+            Message(role='assistant', content=answer.message_to_user),
         ]
         
         await zep.thread.add_messages(

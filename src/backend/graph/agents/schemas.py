@@ -37,6 +37,10 @@ class ImgOutput(BaseModel):
 class UnlockCard(BaseModel):
     unlock_name: str = Field(..., description='Name of unlock card')
     
+class Summarize(BaseModel):
+    user_message: str
+    message_to_user: str = Field(..., description='Ai message')
+    
 class Agents(BaseModel):
     taro_agent: object
     taro_tool: object
@@ -45,7 +49,9 @@ class Agents(BaseModel):
     router_agent: object
     img_agent: object
     unlock_card_agent: object
+    summarize_agent: object
 
     model_config = {
         "arbitrary_types_allowed": True
     }
+    

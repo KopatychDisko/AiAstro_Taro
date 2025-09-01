@@ -9,8 +9,8 @@ from zep_cloud.client import AsyncZep
 
 from .config import base_url, zep_api
 
-from .prompt import taro_prompt, astro_prompt, router_prompt, img_prompt, unlock_card_prompt
-from .schemas import RouterOutput, ImgOutput, Agents, UnlockCard
+from .prompt import *
+from .schemas import RouterOutput, ImgOutput, Agents, UnlockCard, Summarize
 
 import os
 
@@ -115,12 +115,19 @@ def create_card_unlock_agent():
     
     return agent
 
+def create_summarize_agent():
+    llm = ChatOpenAI(model='deepseek/deepseek-chat-v3.1', base_url=base_url, temperature=0)
+    agent = summarize_prompt | llm.with_structured_output(Summarize)
+    
+    return agent
+
 async def create_agents():
     taro_agent, taro_tool = await create_tarot_agent()
     astro_agent, astro_tool = await create_astro_agent()
     router_agent = create_router_agent()
     img_agent = create_img_agent()
     unlock_card_agent = create_card_unlock_agent()
+    summarize_agent = create_summarize_agent()
     return Agents(
         taro_agent=taro_agent, 
         taro_tool=taro_tool, 
@@ -128,5 +135,6 @@ async def create_agents():
         astro_tool=astro_tool,
         router_agent=router_agent, 
         img_agent=img_agent,
-        unlock_card_agent=unlock_card_agent
+        unlock_card_agent=unlock_card_agent,
+        summarize_agent=summarize_agent
         )
