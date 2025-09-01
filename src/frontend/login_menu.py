@@ -47,5 +47,3 @@ st.divider()
 
 if st.button(t('login_button')):
     st.login()
-    
-create_footer(t('created_by'), t('get_in_touch'))
