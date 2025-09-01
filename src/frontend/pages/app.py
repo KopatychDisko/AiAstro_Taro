@@ -49,12 +49,18 @@ with st.sidebar:
     
     st.divider()
     
-    
     if st.user.is_logged_in:
         if st.button(t('logout_button')):
             st.logout()
             
     st.divider()
+    
+    with st.popover(t('contact')):
+        st.markdown("""
+    - [GitHub](https://github.com/KopatychDisko)  
+    - [Telegram](https://t.me/eserov73)  
+    - eserov73@gmail.com  
+    """, unsafe_allow_html=True)
     
     
 prompt = st.chat_input(t('chat_input'), key='chat_input', disabled=st.session_state.wait)
@@ -63,10 +69,7 @@ if prompt:
     st.session_state.messages.append({'role': 'user', 'content': prompt})
     with st.chat_message("user", avatar=st.session_state.user_avatar):
         st.markdown(prompt)
-        try:
-            add_message(st.user.sub, 'user', prompt)
-        except Exception as e:
-            st.error(f"Error saving message: {e}")
+        add_message(st.user.sub, 'user', prompt)
         
     st.session_state.wait = True
     

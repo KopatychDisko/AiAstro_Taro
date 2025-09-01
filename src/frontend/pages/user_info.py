@@ -6,6 +6,7 @@ from database.request import add_user, update_user
 from locales import t
 
 from utils import create_user_zep
+from footer import create_footer
 
 import asyncio
 
@@ -96,3 +97,6 @@ with st.container(border=True, horizontal_alignment="center", vertical_alignment
                 st.warning(t('city_warning'))
         else:
             st.warning(t('fields_warning'))
+            
+            
+create_footer(t('created_by'), t('get_in_touch'))

@@ -63,19 +63,15 @@ def layout(*args):
     st.markdown(str(foot), unsafe_allow_html=True)
 
 
-def footer():
+def create_footer(created_by: str, get_in_touch: str):
     myargs = [
-        "Created by Serov Egor - ",
+        created_by,
         link("https://github.com/KopatychDisko", "Github"),
         br(),
-        "If you enjoyed using this bot and want your own AI agent or automation, just get in touch! =)",
+        get_in_touch,
         br(),
-        link("https://t.me/CrowTheWisest", "Telegram"),
+        link("https://t.me/eserov73", "Telegram"),
         " ",
         "eserov73@gmail.com"
     ]
     layout(*myargs)
-
-
-if __name__ == "__main__":
-    footer()

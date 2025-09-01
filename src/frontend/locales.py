@@ -50,7 +50,11 @@ translations = {
         "status_img_node": "Laying the cards on the table...",
         "status_end": "You are ready to know your destiny",
         "error_saving_user_message": "Error saving message: {}",
-        "error_saving_bot_message": "Error saving bot message: {}"
+        "error_saving_bot_message": "Error saving bot message: {}",
+        #footer
+        "created_by": "Created by Serov Egor - ",
+        "get_in_touch": "If you enjoyed using this bot and want your own AI agent or automation, just get in touch! =)",
+        "contact": "Contact the developer",
     },
     "ru": 
     {
@@ -104,7 +108,12 @@ translations = {
         "status_img_node": "Выкладываю карты на стол...",
         "status_end": "Ты готов(a) узнать свою судьбу",
         "error_saving_user_message": "Ошибка при сохранении сообщения: {}",
-        "error_saving_bot_message": "Ошибка при сохранении сообщения: {}"
+        "error_saving_bot_message": "Ошибка при сохранении сообщения: {}",
+        #footer
+        "created_by": "Сделал Егор Серов - ",
+        "get_in_touch": "Если вам понравилось пользоваться этим ботом и вы хотите иметь собственного ИИ‑агента или автоматизацию, просто свяжитесь с мной! =)",
+        "contact": "Связь с разработчиком"
+    
     }
 }
 

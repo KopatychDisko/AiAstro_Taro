@@ -1,6 +1,7 @@
 import streamlit as st
 
 from database import get_user
+from footer import create_footer
 
 from locales import t
 
@@ -46,3 +47,5 @@ st.divider()
 
 if st.button(t('login_button')):
     st.login()
+    
+create_footer(t('created_by'), t('get_in_touch'))
