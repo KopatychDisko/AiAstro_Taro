@@ -7,8 +7,6 @@ from locales import t
 
 from utils import create_user_zep
 
-import asyncio
-
 today = date.today()
 thirteen_years_ago = today.replace(year=today.year - 13)
 
@@ -90,7 +88,7 @@ with st.container(border=True, horizontal_alignment="center", vertical_alignment
                 except:
                     update_user(str(st.user.sub), st.session_state.birth_day.strftime("%d.%m.%Y"), st.session_state.time_birth.strftime("%H:%M"), city, country, st.session_state.lang)
                 finally:
-                    asyncio.create_task(create_user_zep())
+                    create_user_zep()
                     st.switch_page('pages/app.py')
             else:
                 st.warning(t('city_warning'))

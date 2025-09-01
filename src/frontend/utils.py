@@ -9,7 +9,7 @@ from datetime import datetime
 
 from locales import t
 
-from zep_cloud.client import AsyncZep
+from zep_cloud.client import Zep
 from dotenv import load_dotenv
 import os
 
@@ -17,7 +17,7 @@ load_dotenv()
 
 zep_api = os.getenv('ZEP_API')
 
-zep = AsyncZep(api_key=zep_api)
+zep = Zep(api_key=zep_api)
 
 today = date.today()
 thirteen_years_ago = today.replace(year=today.year - 13)
@@ -131,14 +131,14 @@ def create_form_with_info():
             else:
                 st.warning(t('fields_warning'))
                 
-async def create_user_zep():
-    await zep.user.add(
+def create_user_zep():
+    zep.user.add(
         user_id=str(st.user.sub),
         first_name=st.user.given_name,
         email=st.user.email,
     )
     
-    await zep.thread.create(
+    zep.thread.create(
         thread_id=str(st.user.sub),
         user_id=str(st.user.sub)
     )
