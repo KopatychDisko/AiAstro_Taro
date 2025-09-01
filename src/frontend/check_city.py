@@ -8,6 +8,10 @@ def get_info_from_city(city_name):
     if not location:
         return None
     
+    address_types = ['town', 'city', 'hamlet', 'state', 'county']
+    
+    if location.raw['addresstype'] not in address_types:
+        return None
     
     country = location.raw['display_name'].split(', ')[-1]
     alpha_2 = pycountry.countries.search_fuzzy(country)[0].alpha_2
@@ -15,7 +19,3 @@ def get_info_from_city(city_name):
     city = location.raw['display_name'].split(', ')[0]
     
     return city, alpha_2
-
-if __name__ == '__main__':
-    location = geolocator.geocode('Москва', language='en', exactly_one=True)
-    print(location.raw)
