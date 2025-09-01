@@ -5,9 +5,19 @@ from datetime import date, time as dtime
 from check_city import get_info_from_city
 from database.request import get_last_messages, get_user, update_user, add_user
 
-import datetime
+from datetime import datetime
 
 from locales import t
+
+from zep_cloud.client import AsyncZep
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+zep_api = os.getenv('ZEP_API')
+
+zep = AsyncZep(api_key=zep_api)
 
 today = date.today()
 thirteen_years_ago = today.replace(year=today.year - 13)
@@ -99,8 +109,7 @@ def create_form_with_info():
         )
 
         # Стримлит требует дефолт → ставим полночь
-        time_birth_value = datetime.strptime(st.session_state.time_birth, "%H:%M").time()
-        time_birth = st.time_input(t('time_birth_input'), value=time_birth_value)
+        time_birth = st.time_input(t('time_birth_input'), value=datetime.strptime(st.session_state.time_birth, "%H:%M").time())
 
         submit = st.form_submit_button(t('update_data'))
 
@@ -121,3 +130,15 @@ def create_form_with_info():
                     add_user(str(st.user.sub), st.session_state.birth_day, st.session_state.time_birth, st.session_state.city, st.session_state.country)
             else:
                 st.warning(t('fields_warning'))
+                
+async def create_user_zep():
+    await zep.user.add(
+        user_id=str(st.user.sub),
+        first_name=st.user.given_name,
+        email=st.user.email,
+    )
+    
+    await zep.thread.create(
+        thread_id=str(st.user.sub),
+        user_id=str(st.user.sub)
+    )

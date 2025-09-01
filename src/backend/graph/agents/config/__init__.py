@@ -1,1 +1,1 @@
-from .config import base_url, qdrant_url
+from .config import base_url, zep_api

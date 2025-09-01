@@ -18,13 +18,15 @@ set_data()
 
 col_1, col_2 = st.columns([5, 1])
 with col_2:
-    st.session_state.lang = st.segmented_control(
+    lang = st.segmented_control(
         label=t('language'),
         label_visibility='hidden',
         options=["en", "ru"],
         selection_mode='single',
         default=st.session_state.lang
     )
+    
+    st.session_state.lang = lang
 
 st.set_page_config(page_title=t('page_title_chat'), page_icon='🔮')
 st.title(t('chat_title'))
@@ -51,6 +53,8 @@ with st.sidebar:
     if st.user.is_logged_in:
         if st.button(t('logout_button')):
             st.logout()
+            
+    st.divider()
     
     
 prompt = st.chat_input(t('chat_input'), key='chat_input', disabled=st.session_state.wait)
@@ -72,12 +76,13 @@ if st.session_state.wait:
         # Асинхронный запрос к FastAPI с чтением потока
         request_data = {
             "message": prompt, 
-            "user_id": st.user.sub, 
+            "user_id": str(st.user.sub), 
             "country": st.session_state.country, 
             "time_birth": st.session_state.time_birth, 
             "birth_day": st.session_state.birth_day, 
-            "city": st.session_state.city
-        }
+            "city": st.session_state.city,
+            "name": st.user.given_name
+            }
         
         with httpx.stream("POST", "http://127.0.0.1:8000/stream", json=request_data, timeout=None) as r:
             for chunk in r.iter_text():

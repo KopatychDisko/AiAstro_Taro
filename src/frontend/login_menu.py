@@ -1,6 +1,14 @@
 import streamlit as st
 
+from database import get_user
+
 from locales import t
+
+if st.user.get('is_logged_in'):
+    if get_user(str(st.user.sub)):
+        st.switch_page('pages/app.py')
+    else:
+        st.switch_page('pages/user_info.py')
 
 if "lang" not in st.session_state:
     st.session_state.lang = ""
@@ -17,10 +25,6 @@ with col2:
         default='en'
     )
     
-
-if st.user.get('is_logged_in'):
-    st.switch_page('pages/user_info.py')
-
 st.set_page_config(page_title=t("page_title"), page_icon="⚙️")
 st.title(t('title'))
 

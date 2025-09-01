@@ -4,7 +4,7 @@ from langgraph.graph import MessagesState
 from typing import Literal, Optional, List, Dict
 
 class RouterOutput(BaseModel):
-    next_node: Literal['astro_node', 'taro_node', 'END'] = Field(..., description='What next node need ot execute')
+    next_node: Literal['astro_node', 'taro_node', 'add_memory'] = Field(..., description='What next node need ot execute')
     
     message: Optional[str] = Field(description='If you need just answer user')
     
@@ -13,18 +13,20 @@ class TaroCard(BaseModel):
     reversed: bool
     
 class AgentState(MessagesState):
-    next_node: Literal['astro_node', 'taro_node', 'astro_tool', 'taro_tool', 'END'] = Field(..., description='What next node need ot execute')
+    next_node: Literal['astro_node', 'taro_node', 'astro_tool', 'taro_tool', 'add_memory', 'END'] = Field(..., description='What next node need ot execute')
     
     taro_cards: List[TaroCard]
     unlock_name: str
     
     message_to_user: str
     user_message: str
+    context: str
     
     birth_day: str
     time_birth: str
     city: str
     country: str
+    name: str
     
 class ImgOutput(BaseModel):
     taro_cards: List[TaroCard] = Field(..., description='Fill this with name of taro card and reversed (bool)')

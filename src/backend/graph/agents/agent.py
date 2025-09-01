@@ -1,14 +1,51 @@
+from langchain_core.tools import tool
+from langchain_core.runnables import RunnableConfig
+
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_openai import ChatOpenAI
 
 from langgraph.prebuilt import ToolNode
+from zep_cloud.client import AsyncZep
 
-from .config import base_url
+from .config import base_url, zep_api
 
 from .prompt import taro_prompt, astro_prompt, router_prompt, img_prompt, unlock_card_prompt
 from .schemas import RouterOutput, ImgOutput, Agents, UnlockCard
 
 import os
+
+zep = AsyncZep(api_key=zep_api)
+
+@tool
+async def search_facts(config: RunnableConfig, query: str, limit: int = 3) -> list[str]:
+    """Search for facts in all conversations had with a user.
+    
+    Args:
+        query (str): The search query.
+        limit (int): The number of results to return. Defaults to 3.
+    Returns:
+        list: A list of facts that match the search query.
+    """
+    edges = await zep.graph.search(
+        user_id=config['configurable']["thread_id"], text=query, limit=limit, search_scope="edges"
+    )
+    return [edge.fact for edge in edges]
+
+@tool
+async def search_nodes(config: RunnableConfig, query: str, limit: int = 3) -> list[str]:
+    """Search for nodes in all conversations had with a user.
+    
+    Args:
+        query (str): The search query.
+        limit (int): The number of results to return. Defaults to 3.
+    Returns:
+        list: A list of node summaries for nodes that match the search query.
+    """
+    nodes = await zep.graph.search(
+        user_id=config['configurable']["thread_id"], text=query, limit=limit, search_scope="nodes"
+    )
+    return [node.summary for node in nodes]
+
 
 async def create_tarot_agent():
     llm = ChatOpenAI(base_url=base_url, model='openai/gpt-5-mini', temperature=0.2)
@@ -28,8 +65,8 @@ async def create_tarot_agent():
     )
     
     tools = await client.get_tools()
-    tools_node = ToolNode(tools)
-    agent = llm.bind_tools(tools)
+    tools_node = ToolNode(tools + [search_facts, search_nodes])
+    agent = llm.bind_tools(tools + [search_facts, search_nodes])
     tarot_agent_chain = taro_prompt | agent
     
     return tarot_agent_chain, tools_node
@@ -52,8 +89,8 @@ async def create_astro_agent():
     )
     
     tools = await client.get_tools()
-    tools_node = ToolNode(tools)
-    agent = llm.bind_tools(tools)
+    tools_node = ToolNode(tools + [search_facts, search_nodes])
+    agent = llm.bind_tools(tools + [search_facts, search_nodes])
     
     astro_agent_chain = astro_prompt | agent
     

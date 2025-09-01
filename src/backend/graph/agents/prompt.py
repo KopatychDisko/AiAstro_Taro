@@ -31,6 +31,10 @@ Chakra Alignment
 Shadow Work
 
 Answer with user language
+
+Context: 
+
+{context}
 ''')
 
 astro_prompt = create_prompt('''
@@ -45,6 +49,10 @@ When interpreting the chart, give helpful guidance and insights, and mention a f
 When the user is not asking for astrology, you respond in a warm, friendly, and approachable style.
 
 Always use Markdown formatting and emojis to make your responses welcoming and pleasant. You can add information from you. Add return masive instersting text
+
+Context:
+
+{context}
 ''')
 
 router_prompt = create_prompt('''  
@@ -56,7 +64,11 @@ You have three choices:
 3. **Answer herself (you)** — if the request does not clearly belong to Tarot or Astrology, you must respond directly in the chat with a cryptic, mysterious, and symbolic style.  
 
 Always select the correct agent with confidence.  
-Never explain your routing logic to the user.  
+Never explain your routing logic to the user.
+
+Context: 
+
+{context}
 ''')
 
 

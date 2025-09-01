@@ -16,7 +16,17 @@ async def stream_agent(item: UserData):
         }
     )
     
-    async for chunk in workflow.astream({'messages': [HumanMessage(item.message)], 'next_node': 'router_node', 'birth_day': item.birth_day, 'city': item.city, 'country': item.city, 'time_birth': item.time_birth},
+    info = {
+        'messages': [HumanMessage(item.message)], 
+        'next_node': 'router_node', 
+        'birth_day': item.birth_day, 
+        'city': item.city, 
+        'country': item.city, 
+        'time_birth': item.time_birth, 
+        'name': item.name
+    }
+    
+    async for chunk in workflow.astream(input=info,
                                  stream_mode='values', config=config):
         if chunk.get('taro_cards'):
             chunk['taro_cards'] = [card.model_dump() for card in chunk.get('taro_cards')]
