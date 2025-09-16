@@ -102,7 +102,7 @@ if st.session_state.wait:
                     status.update(label=t('status_astro_node'), state='running')
                 elif next_node == 'img_node':
                     status.update(label=t('status_img_node'), state='running')
-                elif next_node == 'END':
+                elif next_node == 'add_memory':
                     status.update(label=t('status_end'), state='complete')
                     
                     st.session_state.ai_msg = data.message_to_user
