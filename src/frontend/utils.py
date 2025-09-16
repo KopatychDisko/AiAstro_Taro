@@ -19,23 +19,6 @@ zep_api = os.getenv('ZEP_API')
 
 zep = Zep(api_key=zep_api)
 
-today = date.today()
-thirteen_years_ago = today.replace(year=today.year - 13)
-
-try:
-    ninety_years_ago = today.replace(year=today.year - 90)
-except ValueError:
-    # Обработка 29 февраля в високосный год
-    ninety_years_ago = today.replace(month=2, day=28, year=today.year - 90)
-
-
-def is_age_ok(birth_date: date) -> bool:
-    today = date.today()
-    age = today.year - birth_date.year - (
-        (today.month, today.day) < (birth_date.month, birth_date.day)
-    )
-    return 13 <= age <= 90
-
 
 def stream_text(text, delay=0.01):
     """Генератор, который выдаёт текст по кусочкам"""
@@ -102,12 +85,9 @@ def create_form_with_info():
         birth_day = st.date_input(
             t('birth_day_input'),
             format="DD.MM.YYYY",
-            max_value=thirteen_years_ago,
-            min_value=ninety_years_ago,
             value=datetime.strptime(st.session_state.birth_day, "%d.%m.%Y").date()
-            
         )
-
+        
         # Стримлит требует дефолт → ставим полночь
         time_birth = st.time_input(t('time_birth_input'), value=datetime.strptime(st.session_state.time_birth, "%H:%M").time())
 
@@ -116,7 +96,7 @@ def create_form_with_info():
         if submit:
             city_info = get_info_from_city(city) if city else None
 
-            if is_age_ok(birth_day) and city_info:
+            if city_info:
                 st.session_state.city = city_info[0]
                 st.session_state.country = city_info[1]
                 st.session_state.birth_day = birth_day.strftime("%d.%m.%Y")
