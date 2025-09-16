@@ -41,7 +41,7 @@ async def setup_workflow():
         
         if answer.next_node == 'add_memory':
             return {'message_to_user': answer.message, 'next_node': answer.next_node, 'user_message': user_message}
-        
+    
         return {'next_node': answer.next_node, 'user_message': user_message}
 
     async def astro_node(state):
