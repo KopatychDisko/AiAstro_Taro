@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "deepeval": {
+      "source": "confident-ai/deepeval",
+      "sourceType": "github",
+      "skillPath": "skills/deepeval/SKILL.md",
+      "computedHash": "1513200bf41565e1bf84146882166bfb772d96887b0733f320eae5aa86443748"
+    },
+    "deepeval-tracing": {
+      "source": "confident-ai/deepeval",
+      "sourceType": "github",
+      "skillPath": "skills/deepeval-tracing/SKILL.md",
+      "computedHash": "16efcdf71141d893c6470ff0b0deed66cf5b7cf9f692965298457d42923efeef"
+    },
+    "langfuse": {
+      "source": "langfuse/skills",
+      "sourceType": "github",
+      "skillPath": "skills/langfuse/SKILL.md",
+      "computedHash": "4c5fd7416a341ca8b56b2efcd96f68f867205f0b774ecb12f3078db490c0d5f3"
+    }
+  }
+}

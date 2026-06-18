@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "command": "\"/home/egor/.nvm/versions/node/v24.16.0/bin/node\" \"/home/egor/projects/AiTaro/.cursor/hooks/gsd-cursor-session-start.js\"",
+        "gsd-managed": true
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "command": "\"/home/egor/.nvm/versions/node/v24.16.0/bin/node\" \"/home/egor/projects/AiTaro/.cursor/hooks/gsd-cursor-post-tool.js\"",
+        "gsd-managed": true
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,5 +1,5 @@
 from langgraph.graph import StateGraph
-from langgraph.prebuilt import tools_condition
+from .routing import capped_tools_condition
 from langgraph.constants import END
 
 from zep_cloud.client import AsyncZep
@@ -7,13 +7,17 @@ from zep_cloud import Message
 
 from langchain_core.runnables import RunnableConfig
 
-from .agents import *
+from .agents import AgentState, create_agents
+from .taro_card_mapping import extract_cards_from_messages
 from dotenv import load_dotenv
 
+import logging
 import os
 import asyncio
 
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 async def setup_workflow():
@@ -30,7 +34,8 @@ async def setup_workflow():
         try:
             memory = await zep.thread.get_user_context(session_id)
             context = f'User name: {user_name}\n Context: {memory.context}'
-        except:
+        except Exception:
+            logger.exception("Failed to fetch Zep user context")
             context = f'User name: {user_name}'
          
         return {'context': context}
@@ -46,27 +51,31 @@ async def setup_workflow():
 
     async def astro_node(state):
         answer = await agents.astro_agent.ainvoke({'messages': state['messages'], 'birth_day': state['birth_day'], 'time_birth': state['time_birth'], 'city': state['city'], 'country': state['country'], 'context': state['context']})
-        next_node = 'add_memory'
-        
+        update = {'messages': [answer], 'message_to_user': answer.content}
         if answer.tool_calls:
-            next_node = 'astro_tool'
-        
-        return {'messages': [answer], 'message_to_user': answer.content, 'next_node': next_node}
+            update['next_node'] = 'astro_tool'
+            update['tool_iterations'] = state.get('tool_iterations', 0) + 1
+        else:
+            update['next_node'] = 'add_memory'
+        return update
 
     async def taro_node(state):
         answer = await agents.taro_agent.ainvoke({'messages': state['messages'], 'context': state['context']})
-        
-        next_node = 'img_node'
-        
+        update = {'messages': [answer], 'message_to_user': answer.content}
         if answer.tool_calls:
-            next_node = 'taro_tool'
-        
-        return {'messages': [answer], 'message_to_user': answer.content, 'next_node': next_node}
+            update['next_node'] = 'taro_tool'
+            update['tool_iterations'] = state.get('tool_iterations', 0) + 1
+        else:
+            update['next_node'] = 'img_node'
+        return update
 
     async def img_node(state):
-        answer = await agents.img_agent.ainvoke(state['message_to_user'])
-        
-        return {'taro_cards': answer.taro_cards, 'next_node': 'add_memory', 'unlock_name': answer.unlock_name}
+        taro_cards, unlock_name = extract_cards_from_messages(state["messages"])
+        return {
+            "taro_cards": taro_cards,
+            "next_node": "add_memory",
+            "unlock_name": unlock_name,
+        }
     
     async def add_memory(state, config: RunnableConfig):
         session_id = config['configurable']["thread_id"]
@@ -78,14 +87,17 @@ async def setup_workflow():
             Message(role='assistant', content=answer.message_to_user),
         ]
         
-        await zep.thread.add_messages(
-        thread_id=session_id,
-        messages=messages_to_save,
-        )
+        try:
+            await zep.thread.add_messages(
+                thread_id=session_id,
+                messages=messages_to_save,
+            )
+        except Exception:
+            logger.exception("Failed to persist messages to Zep")
         
         return {'next_node': 'END'}
 
-    def next_node(state):
+    def route_from_router(state):
         return state['next_node']
     
   
@@ -105,14 +117,16 @@ async def setup_workflow():
     graph.set_entry_point('take_context')
     graph.add_edge('take_context', 'router_node')
 
-    graph.add_conditional_edges('router_node', next_node, {'taro_node': 'taro_node', 'astro_node': 'astro_node', 'add_memory': 'add_memory'})
-        
-    graph.add_edge('astro_node', 'add_memory')
+    graph.add_conditional_edges(
+        'router_node',
+        route_from_router,
+        {'taro_node': 'taro_node', 'astro_node': 'astro_node', 'add_memory': 'add_memory'},
+    )
 
-    graph.add_conditional_edges('astro_node', tools_condition, {'tools': 'astro_tool', '__end__': 'add_memory'})
+    graph.add_conditional_edges('astro_node', capped_tools_condition, {'tools': 'astro_tool', '__end__': 'add_memory'})
     graph.add_edge('astro_tool', 'astro_node')
 
-    graph.add_conditional_edges('taro_node', tools_condition, {'tools': 'taro_tool', '__end__': 'img_node'})
+    graph.add_conditional_edges('taro_node', capped_tools_condition, {'tools': 'taro_tool', '__end__': 'img_node'})
     graph.add_edge('taro_tool', 'taro_node')
 
     graph.add_edge('img_node', 'add_memory')
@@ -122,5 +136,5 @@ async def setup_workflow():
     return graph.compile()
     
 if __name__ == '__main__':
-    graph = asyncio.run(setup_workflow())
-    graph.draw_mermaid()
+    compiled = asyncio.run(setup_workflow())
+    print(compiled.get_graph().draw_mermaid())

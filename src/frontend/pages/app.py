@@ -1,6 +1,13 @@
+import os
+
 import streamlit as st
 import httpx
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
+
+STREAM_API_KEY = os.getenv("STREAM_API_KEY")
 
 from schema import *
 from templates import create_html_taro
@@ -87,7 +94,16 @@ if st.session_state.wait:
             "name": st.user.given_name
             }
         
-        with httpx.stream("POST", "http://127.0.0.1:8000/stream", json=request_data, timeout=None) as r:
+        stream_headers = {}
+        if STREAM_API_KEY:
+            stream_headers["X-API-Key"] = STREAM_API_KEY
+        with httpx.stream(
+            "POST",
+            "http://127.0.0.1:8000/stream",
+            json=request_data,
+            headers=stream_headers,
+            timeout=None,
+        ) as r:
             for chunk in r.iter_text():
                 temp = json.loads(chunk)
                 data = ExtractData.model_validate(temp)

@@ -9,8 +9,14 @@ from zep_cloud.client import AsyncZep
 
 from .config import base_url, zep_api
 
-from .prompt import *
-from .schemas import RouterOutput, ImgOutput, Agents, UnlockCard, Summarize
+from .prompt import (
+    astro_prompt,
+    router_prompt,
+    summarize_prompt,
+    taro_prompt,
+    unlock_card_prompt,
+)
+from .schemas import RouterOutput, Agents, UnlockCard, Summarize
 
 import os
 
@@ -99,25 +105,19 @@ async def create_astro_agent():
 def create_router_agent():
     llm = ChatOpenAI(model='openai/gpt-5-nano',base_url=base_url, temperature=0)
     
-    agent = router_prompt | llm.with_structured_output(RouterOutput)
+    agent = router_prompt | llm.with_structured_output(RouterOutput).with_retry(stop_after_attempt=2)
     
-    return agent
-
-def create_img_agent():
-    llm = ChatOpenAI(model='openai/gpt-5-mini',base_url=base_url, temperature=0)
-    
-    agent = img_prompt | llm.with_structured_output(ImgOutput)
     return agent
 
 def create_card_unlock_agent():
     llm = ChatOpenAI(model='qwen/qwq-32b', base_url=base_url, temperature=0)
-    agent = unlock_card_prompt | llm.with_structured_output(UnlockCard)
+    agent = unlock_card_prompt | llm.with_structured_output(UnlockCard).with_retry(stop_after_attempt=2)
     
     return agent
 
 def create_summarize_agent():
     llm = ChatOpenAI(model='deepseek/deepseek-chat-v3.1', base_url=base_url, temperature=0)
-    agent = summarize_prompt | llm.with_structured_output(Summarize)
+    agent = summarize_prompt | llm.with_structured_output(Summarize).with_retry(stop_after_attempt=2)
     
     return agent
 
@@ -125,7 +125,6 @@ async def create_agents():
     taro_agent, taro_tool = await create_tarot_agent()
     astro_agent, astro_tool = await create_astro_agent()
     router_agent = create_router_agent()
-    img_agent = create_img_agent()
     unlock_card_agent = create_card_unlock_agent()
     summarize_agent = create_summarize_agent()
     return Agents(
@@ -134,7 +133,6 @@ async def create_agents():
         astro_agent=astro_agent, 
         astro_tool=astro_tool,
         router_agent=router_agent, 
-        img_agent=img_agent,
         unlock_card_agent=unlock_card_agent,
         summarize_agent=summarize_agent
         )
