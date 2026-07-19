@@ -76,7 +76,7 @@ Each task was committed atomically:
    - `1405b5a` (feat) — uv add deepeval, metrics/markers/addopts, README
    - `7574f66` (chore) — ignore `.deepeval/` runtime telemetry
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `3ff74c4` (docs: complete plan)
 
 ## Files Created/Modified
 
