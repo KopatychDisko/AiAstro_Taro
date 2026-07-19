@@ -58,11 +58,11 @@ cp .env.example .env
 
 ```bash
 uv sync
-# If psycopg2 build fails, install runtime deps selectively:
-# uv pip install fastapi langgraph langchain-openai ...
 ```
 
-### 3. Build tarot MCP
+Uses `psycopg2-binary` (no system `pg_config` required).
+
+### 3. Build tarot MCP (required for backend startup)
 
 ```bash
 cd src/tarotmcp
@@ -70,18 +70,29 @@ npm install
 npm run build
 ```
 
+Astro MCP (`src/astromcp`) is deferred — backend starts without it.
+
+Tarot MCP build copies `card-data.json` into `dist/` (required at runtime).
+
 ### 4. Run backend
 
+From repo root (after `uv sync` once):
+
 ```bash
-cd src/backend
-uv run uvicorn server.app:app --reload --port 8000
+PYTHONPATH=src/backend uv run uvicorn server.app:app --reload --port 8000
+```
+
+Or with the local venv:
+
+```bash
+PYTHONPATH=src/backend .venv/bin/uvicorn server.app:app --reload --port 8000
 ```
 
 ### 5. Run frontend
 
 ```bash
 cd src/frontend
-uv run streamlit run pages/app.py
+PYTHONPATH=. uv run streamlit run login_menu.py
 ```
 
 Set `STREAM_API_KEY` in both `.env` files so the Streamlit client can authenticate to `/stream`.
