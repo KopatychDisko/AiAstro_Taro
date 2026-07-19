@@ -76,7 +76,7 @@ Each task was committed atomically:
 1. **Task 1: Router and taro packages** - `8bf8120` (feat)
 2. **Task 2: Astro package** - `d01ff80` (feat)
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `4fc5dd2` (docs: complete plan)
 
 ## Files Created/Modified
 
