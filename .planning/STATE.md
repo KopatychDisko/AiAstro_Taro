@@ -2,33 +2,33 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-last_updated: "2026-07-19T23:35:52.837Z"
-last_activity: 2026-07-20 — Completed 11-03-PLAN.md
+status: ready_for_verification
+last_updated: "2026-07-19T23:41:28.393Z"
+last_activity: 2026-07-20 — Completed 11-04-PLAN.md
 progress:
   total_phases: 3
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 14
-  completed_plans: 12
-  percent: 86
+  completed_plans: 13
+  percent: 93
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 11 executing — plan 03 complete  
+**Status:** Phase 11 complete — ready for verification  
 **Last updated:** 2026-07-20
 
 ## Current Position
 
-Phase: 11 (agent-harness-hardening) — EXECUTING  
+Phase: 11 (agent-harness-hardening) — READY FOR VERIFICATION  
 Plan: 4 of 4
-Status: Ready to execute
-Last activity: 2026-07-20 — Completed 11-03-PLAN.md
+Status: Phase complete — ready for verification
+Last activity: 2026-07-20 — Completed 11-04-PLAN.md
 
 ## Current Phase
 
-Phase 11: Agent Harness Hardening — executing (3/4 plans)
+Phase 11: Agent Harness Hardening — all 4/4 plans complete; awaiting verification
 
 ## Completed
 
@@ -72,6 +72,7 @@ None
 | Phase 11 P01 | 2min | 2 tasks | 10 files |
 | Phase 11 P02 | 2min | 2 tasks | 12 files |
 | Phase 11 P03 | 1min | 2 tasks | 6 files |
+| Phase 11 P04 | 3min | 2 tasks | 9 files |
 
 ## Decisions
 
@@ -92,3 +93,5 @@ None
 - [Phase 11]: Pattern 2 English UNTRUSTED_USER_MEMORY prefix with treat-as-data line (D-08)
 - [Phase 11]: Single wrap after success/fallback assign — both paths labeled once (D-09)
 - [Phase 11]: Cap log extras: tool_iterations + max_tool_iterations (D-04)
+- [Phase 11]: Deterministic ExactMatchMetric for offline router/taro DeepEval (no GEval/Confident AI)
+- [Phase 11]: Eval coverage router+taro only; pytest mark eval excluded by default addopts

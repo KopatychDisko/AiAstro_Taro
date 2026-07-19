@@ -16,7 +16,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 - [x] **Phase 8: README & Documentation** - Architecture diagram, stack, run instructions
 - [x] **Phase 9: Backend Structure Refactor** - Split backend into agents + server; split graph by agent/subagent (completed 2026-07-19)
 - [x] **Phase 10: Simple Startup** - One-command local run: deps, MCP build, env checks, backend + frontend (completed 2026-07-19)
-- [ ] **Phase 11: Agent Harness Hardening** - Dead unlock agent, budgets, trust-labeled context, Langfuse v4, lightweight evals
+- [x] **Phase 11: Agent Harness Hardening** - Dead unlock agent, budgets, trust-labeled context, Langfuse v4, lightweight evals (completed 2026-07-19)
 
 ## Progress
 
@@ -113,7 +113,7 @@ Plans:
   5. A lightweight eval harness exists (fixture scenarios + pass/fail criteria) for at least router + one domain agent path
   6. `pytest -q` stays green; no new required env keys beyond existing optional Langfuse
 
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans complete
 
 Plans:
 
@@ -131,7 +131,7 @@ Plans:
 
 **Wave 4** *(blocked on Waves 2–3; human deepeval legitimacy gate)*
 
-- [ ] 11-04-PLAN.md — Offline DeepEval router+taro suite behind eval marker (D-12, D-13)
+- [x] 11-04-PLAN.md — Offline DeepEval router+taro suite behind eval marker (D-12, D-13)
 
 **Cross-cutting constraints:**
 
