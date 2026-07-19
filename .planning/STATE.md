@@ -1,26 +1,12 @@
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: Phase 9 added (not planned)
-last_updated: "2026-07-19T20:40:20.726Z"
-progress:
-  total_phases: 1
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
----
-
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 9 added (not planned)  
+**Status:** Phase 9 research complete — ready to plan  
 **Last updated:** 2026-07-19
 
 ## Current Phase
 
-Phase 9: Backend Structure Refactor — not planned yet
+Phase 9: Backend Structure Refactor — research complete (`09-RESEARCH.md`); ready for planning
 
 ## Completed
 
@@ -48,3 +34,8 @@ None.
 ### Roadmap Evolution
 
 - Phase 9 added: Backend structure refactor — split into agents and server packages; split graph into per-agent and subagent modules
+
+### Session
+
+- Stopped at: Phase 9 research complete
+- Resume: `/gsd-plan-phase` using `.planning/phases/09-backend-structure-refactor/09-RESEARCH.md`
