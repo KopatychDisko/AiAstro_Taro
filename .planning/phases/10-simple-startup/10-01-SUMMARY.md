@@ -75,7 +75,7 @@ Each task was committed atomically:
 2. **Task 1 (GREEN): Packaging, path stubs, required_env** - `9172224` (feat)
 3. **Task 2: Expand Wave 0 entrypoint coverage** - `21ffac7` (test)
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `62cbfcc` (docs: complete plan)
 
 ## Files Created/Modified
 
