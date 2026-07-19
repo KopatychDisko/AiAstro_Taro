@@ -9,6 +9,9 @@ wheels/
 # Virtual environments
 .venv
 
+# DeepEval local runtime / telemetry (offline suite; no Confident AI)
+.deepeval/
+
 #secrets
 .streamlit
 .env
