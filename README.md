@@ -44,6 +44,8 @@ flowchart TD
 
 Cards and spread title (`spread_name`) are parsed from MCP `ToolMessage` markdown in `img_node` — no LLM card extraction.
 
+Tool-loop budget: tarot and astrology agents stop after `MAX_TOOL_ITERATIONS = 3` tool rounds (`agents.routing`); the cap is a named constant (not env-configurable). Hitting the cap logs a structured warning and ends the tool loop silently — no user-facing limit message.
+
 ## Quick start
 
 ### 1. Environment
