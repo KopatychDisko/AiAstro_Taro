@@ -41,9 +41,8 @@ flowchart TD
 | Tarot agent | `openai/gpt-5-mini` | Conversation + MCP tarot tool calls |
 | Astro agent | `openai/gpt-5-mini` | Astrology conversation + MCP tools (deferred in v1) |
 | Summarize | `deepseek/deepseek-chat-v3.1` | Compress exchange for Zep memory |
-| Unlock card | `qwen/qwq-32b` | Spread layout unlock name (from MCP text) |
 
-Cards are parsed from MCP `ToolMessage` markdown in `img_node` — no LLM card extraction.
+Cards and spread title (`spread_name`) are parsed from MCP `ToolMessage` markdown in `img_node` — no LLM card extraction.
 
 ## Quick start
 

@@ -23,7 +23,7 @@ class AgentState(MessagesState):
     tool_iterations: int = 0
     
     taro_cards: List[TaroCard]
-    unlock_name: str
+    spread_name: str
     
     message_to_user: str
     user_message: str
@@ -34,10 +34,6 @@ class AgentState(MessagesState):
     city: str
     country: str
     name: str
-
-
-class UnlockCard(BaseModel):
-    unlock_name: str = Field(..., description='Name of unlock card')
 
 
 class Summarize(BaseModel):
@@ -52,5 +48,4 @@ class Agents:
     astro_agent: object
     astro_tool: object
     router_agent: object
-    unlock_card_agent: object
     summarize_agent: object

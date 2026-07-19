@@ -61,6 +61,5 @@ def make_mock_agents(router_output: RouterOutput) -> Agents:
         astro_agent=astro_agent,
         astro_tool=MagicMock(),
         router_agent=router_agent,
-        unlock_card_agent=MagicMock(),
         summarize_agent=summarize_agent,
     )
