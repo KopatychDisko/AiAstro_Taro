@@ -2,33 +2,32 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: complete
-last_updated: "2026-07-19T21:50:00.000Z"
-last_activity: 2026-07-19
+status: phase_10_pending
+last_updated: "2026-07-20T00:52:00.000Z"
+last_activity: 2026-07-20
 progress:
-  total_phases: 9
+  total_phases: 10
   completed_phases: 9
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_plans: 0
+  completed_plans: 0
+  percent: 90
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 9 verified complete  
-**Last updated:** 2026-07-19
+**Status:** Phase 10 context gathered — ready to plan  
+**Last updated:** 2026-07-20
 
 ## Current Position
 
-Phase: 09-backend-structure-refactor  
-Plan: 6 of 6  
-Status: Complete — verification passed  
-Last activity: 2026-07-19
+Phase: 10-simple-startup  
+Status: Context gathered (`10-CONTEXT.md`)  
+Last activity: 2026-07-20
 
 ## Current Phase
 
-All phases complete through Phase 9.
+Phase 10: Simple Startup — context gathered, not planned yet
 
 ## Completed
 
@@ -51,15 +50,11 @@ None
 - Uses `psycopg2-binary` (no system `pg_config` required for `uv sync`).
 - Tarot MCP requires `npm run build` in `src/tarotmcp` before live runs (copies `card-data.json` into `dist/`).
 - Astro MCP deferred to v2 — backend starts without it.
-- Backend entrypoint: `PYTHONPATH=src/backend uv run uvicorn server.app:app --reload --port 8000`
+- Backend entrypoint today: `PYTHONPATH=src/backend uv run uvicorn server.app:app --reload --port 8000` — Phase 10 should simplify this.
 
 ## Accumulated Context
 
 ### Roadmap Evolution
 
 - Phase 9 added: Backend structure refactor — split into agents and server packages; split graph into per-agent and subagent modules
-
-### Session
-
-- Stopped at: Phase 9 verification passed
-- Resume: None
+- Phase 10 added: Simple Startup — one-command local run, MCP build, env checks, remove PYTHONPATH friction
