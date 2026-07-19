@@ -71,7 +71,7 @@ Each task was committed atomically:
 3. **Task 2 (RED): factory aitaro-setup message test** - `0762893` (test)
 4. **Task 2 (GREEN): factory message alignment** - `8ad6d87` (feat)
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `87b404a` (docs: complete plan)
 
 ## Files Created/Modified
 
