@@ -51,8 +51,9 @@ Cards are parsed from MCP `ToolMessage` markdown in `img_node` — no LLM card e
 
 ```bash
 cp .env.example .env
-# Fill OPENAI_API_KEY, ZEP_API, STREAM_API_KEY, PostgreSQL vars
 ```
+
+Fill required keys: `STREAM_API_KEY`, `OPENAI_API_KEY`, `ZEP_API` (plus PostgreSQL vars used by the app).
 
 ### 2. Python dependencies
 
@@ -62,40 +63,28 @@ uv sync
 
 Uses `psycopg2-binary` (no system `pg_config` required).
 
-### 3. Build tarot MCP (required for backend startup)
+### 3. Setup (env check + tarot MCP build)
 
 ```bash
-cd src/tarotmcp
-npm install
-npm run build
+uv run aitaro-setup
 ```
-
-Astro MCP (`src/astromcp`) is deferred — backend starts without it.
-
-Tarot MCP build copies `card-data.json` into `dist/` (required at runtime).
 
 ### 4. Run backend
 
-From repo root (after `uv sync` once):
-
 ```bash
-PYTHONPATH=src/backend uv run uvicorn server.app:app --reload --port 8000
+uv run aitaro-api
 ```
 
-Or with the local venv:
+API listens on `http://127.0.0.1:8000`.
 
-```bash
-PYTHONPATH=src/backend .venv/bin/uvicorn server.app:app --reload --port 8000
-```
-
-### 5. Run frontend
+### UI (optional)
 
 ```bash
 cd src/frontend
-PYTHONPATH=. uv run streamlit run login_menu.py
+uv run streamlit run login_menu.py
 ```
 
-Set `STREAM_API_KEY` in both `.env` files so the Streamlit client can authenticate to `/stream`.
+Set `STREAM_API_KEY` in `.env` so the Streamlit client can authenticate to `/stream`.
 
 ## API
 
