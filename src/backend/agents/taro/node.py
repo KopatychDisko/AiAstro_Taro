@@ -1,7 +1,11 @@
+from langchain_core.runnables import RunnableConfig
+
+
 def create_taro_node(agents):
-    async def taro_node(state):
+    async def taro_node(state, config: RunnableConfig):
         answer = await agents.taro_agent.ainvoke(
-            {'messages': state['messages'], 'context': state['context']}
+            {'messages': state['messages'], 'context': state['context']},
+            config=config,
         )
         update = {'messages': [answer], 'message_to_user': answer.content}
         if answer.tool_calls:

@@ -1,5 +1,8 @@
+from langchain_core.runnables import RunnableConfig
+
+
 def create_astro_node(agents):
-    async def astro_node(state):
+    async def astro_node(state, config: RunnableConfig):
         answer = await agents.astro_agent.ainvoke(
             {
                 'messages': state['messages'],
@@ -8,7 +11,8 @@ def create_astro_node(agents):
                 'city': state['city'],
                 'country': state['country'],
                 'context': state['context'],
-            }
+            },
+            config=config,
         )
         update = {'messages': [answer], 'message_to_user': answer.content}
         if answer.tool_calls:

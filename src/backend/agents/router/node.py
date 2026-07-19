@@ -1,7 +1,11 @@
+from langchain_core.runnables import RunnableConfig
+
+
 def create_router_node(agents):
-    async def router_node(state):
+    async def router_node(state, config: RunnableConfig):
         answer = await agents.router_agent.ainvoke(
-            {'messages': state['messages'], 'context': state['context']}
+            {'messages': state['messages'], 'context': state['context']},
+            config=config,
         )
         user_message = state['messages'][-1].content
 

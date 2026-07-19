@@ -8,7 +8,11 @@ from langchain_core.messages import HumanMessage
 from langchain_core.runnables import RunnableConfig
 
 from server.auth import verify_stream_api_key
-from server.observability import build_langfuse_callbacks
+from server.observability import (
+    build_langfuse_callbacks,
+    flush_langfuse,
+    langfuse_run_metadata,
+)
 from server.required_env import require_env_or_raise
 from server.schemas import ExtractData, UserData
 from agents import setup_workflow
@@ -17,11 +21,13 @@ logger = logging.getLogger(__name__)
 
 
 async def stream_agent(item: UserData):
+    callbacks = build_langfuse_callbacks(item.user_id, item.name)
     config = RunnableConfig(
         configurable={
             "thread_id": item.user_id
         },
-        callbacks=build_langfuse_callbacks(item.user_id, item.name),
+        callbacks=callbacks,
+        metadata=langfuse_run_metadata(item.user_id, item.name),
     )
     
     info = {
@@ -49,6 +55,9 @@ async def stream_agent(item: UserData):
             message_to_user='Sorry, the assistant encountered an error. Please try again.',
         )
         yield error_chunk.model_dump_json()
+    finally:
+        if callbacks:
+            flush_langfuse()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

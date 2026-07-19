@@ -48,7 +48,8 @@ async def setup_workflow():
             {
                 'user_message': state['user_message'],
                 'message_to_user': state['message_to_user'],
-            }
+            },
+            config=config,
         )
 
         messages_to_save = [

@@ -115,10 +115,10 @@ Set in `.env`:
 ```
 LANGFUSE_PUBLIC_KEY=
 LANGFUSE_SECRET_KEY=
-LANGFUSE_HOST=          # optional, defaults to cloud
+LANGFUSE_HOST=          # optional; or LANGFUSE_BASE_URL for self-hosted / US cloud
 ```
 
-When keys are absent, tracing is disabled and the app runs normally.
+When keys are set, `/stream` attaches a Langfuse LangChain `CallbackHandler` and propagates it into router / taro / astro / summarize agent calls (session = `user_id`). When keys are absent, tracing is disabled and the app runs normally.
 
 ## Tests
 
