@@ -459,16 +459,11 @@ def test_router_eval(golden):
 
 **Note:** A1–A3 are discretion/confirmation items, not blockers for planning. Locked D-* decisions are not assumptions.
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Eval goldens source**
-   - What we know: no existing `tests/evals/`; skill prefers generated goldens when empty, but phase wants lightweight harness.
-   - What's unclear: hand-curated 5–10 goldens vs `deepeval generate`.
-   - Recommendation: hand-curate small JSON goldens for router intents + one taro MCP fixture path (faster, no generation tooling in Wave 0).
+1. **Eval goldens source** — **RESOLVED:** Hand-curate small JSON goldens for router intents + one taro MCP fixture path (Plan 11-04). Do not use `deepeval generate` in this phase.
 
-2. **Whether to bump `langfuse>=3.0.0` pin to `>=4.0.0`**
-   - What we know: lock already resolves 4.14.0.
-   - Recommendation: optional pyproject pin tighten in same Langfuse land commit; not required for correctness.
+2. **Whether to bump `langfuse>=3.0.0` pin to `>=4.0.0`** — **RESOLVED:** Leave pin as-is; lock already resolves 4.14.0. Optional non-blocking pin tighten not required for Phase 11 correctness (Plan 11-01).
 
 ## Environment Availability
 
