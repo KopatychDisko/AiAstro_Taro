@@ -76,15 +76,18 @@ async def run_router_with_mocks(
         compiled = await setup_workflow()
         config = RunnableConfig(configurable={"thread_id": "eval-router-1"})
         router_update: dict[str, object] | None = None
-
-        async for update in compiled.astream(
+        stream = compiled.astream(
             _graph_input(user_message),
             config=config,
             stream_mode="updates",
-        ):
-            if "router_node" in update:
-                router_update = update["router_node"]
-                break
+        )
+        try:
+            async for update in stream:
+                if "router_node" in update:
+                    router_update = update["router_node"]
+                    break
+        finally:
+            await stream.aclose()
 
     if router_update is None:
         raise RuntimeError("router_node did not emit an update")

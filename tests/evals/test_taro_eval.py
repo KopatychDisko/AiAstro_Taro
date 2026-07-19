@@ -41,8 +41,6 @@ TARO_GOLDENS = load_taro_goldens(GOLDENS_PATH)
 def run_taro_mapping(mcp_markdown: str) -> str:
     """Map MCP reading markdown to frontend spread_name."""
     _cards, spread_name = parse_mcp_reading_text(mcp_markdown)
-    if spread_name is None:
-        raise ValueError("parse_mcp_reading_text returned no spread_name")
     return spread_name
 
 

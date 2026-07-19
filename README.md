@@ -124,10 +124,21 @@ When keys are set, `/stream` attaches a Langfuse LangChain `CallbackHandler` and
 ## Tests
 
 ```bash
-python -m pytest -q
+uv run pytest -q
 ```
 
-`pythonpath` includes `src/backend`. External services (LLM, Zep, MCP) are mocked in unit tests.
+`pythonpath` includes `src/backend`. External services (LLM, Zep, MCP) are mocked in unit tests. Default runs exclude `@pytest.mark.eval` via `addopts = -m "not eval"` so the suite stays fast.
+
+### Offline DeepEval (router + taro)
+
+Opt-in regression evals live under `tests/evals/` (hand-curated goldens; no Confident AI login). Run either:
+
+```bash
+uv run pytest -m eval
+uv run deepeval test run tests/evals
+```
+
+Coverage is router intent routing and taro MCP spread-name mapping only — not astrology.
 
 ## Project layout
 

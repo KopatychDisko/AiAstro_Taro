@@ -58,9 +58,14 @@ dev = [
     "pytest>=8.3.0",
     "pytest-asyncio>=0.25.0",
     "httpx>=0.28.0",
+    "deepeval>=4.1.1",
 ]
 
 [tool.pytest.ini_options]
 pythonpath = ["src/backend", "."]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+addopts = "-m 'not eval'"
+markers = [
+    "eval: offline DeepEval regression suite (router + taro); excluded from default runs",
+]
