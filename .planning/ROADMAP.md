@@ -15,6 +15,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 - [x] **Phase 7: Langfuse Observability** - SDK tracing, optional when keys absent
 - [x] **Phase 8: README & Documentation** - Architecture diagram, stack, run instructions
 - [x] **Phase 9: Backend Structure Refactor** - Split backend into agents + server; split graph by agent/subagent (completed 2026-07-19)
+- [ ] **Phase 10: Simple Startup** - One-command local run: deps, MCP build, env checks, backend + frontend
 
 ## Progress
 
@@ -29,6 +30,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 | 7. Langfuse Observability | Complete | 2026-06-17 |
 | 8. README & Documentation | Complete | 2026-06-17 |
 | 9. Backend Structure Refactor | Complete | 2026-07-19 |
+| 10. Simple Startup | Not started | - |
 
 ### Phase 9: Backend Structure Refactor
 
@@ -55,3 +57,27 @@ Plans:
 - [x] 09-04-PLAN.md — Workflow nodes + setup_workflow public export
 - [x] 09-05-PLAN.md — Server package + README uvicorn server.app:app
 - [x] 09-06-PLAN.md — Hard-cut tests, delete legacy graph/flat modules, grep gates
+
+### Phase 10: Simple Startup
+
+**Goal:** Make local development start with a single documented path — install deps, build tarot MCP, validate required env vars, run backend and frontend without `PYTHONPATH` gymnastics or opaque startup failures.
+
+**Requirements:** SC-10.1, SC-10.2, SC-10.3, SC-10.4, SC-10.5, SC-10.6
+
+**Depends on:** Phase 9
+
+**Success Criteria** (what must be TRUE):
+  1. A root script or documented one-liner installs Python deps (`uv sync`), builds tarot MCP (`npm run build` including card-data), and prints clear next steps
+  2. Backend starts with `uv run` / script from repo root without manual `PYTHONPATH=src/backend` (packaging or wrapper handles it)
+  3. Missing required env (`OPENAI_API_KEY`, `ZEP_API`, `STREAM_API_KEY`, …) fails fast with actionable messages before MCP/LLM init
+  4. Missing tarot MCP dist fails with the exact build command (already partial — keep/improve)
+  5. README Quick start is ≤5 steps and matches the scripts that actually work
+  6. `pytest -q` still green
+
+**Plans:** 3 plans
+
+Plans:
+
+- [ ] 10-01-PLAN.md — Wave 0: setuptools scripts packaging, required_env helper, Nyquist tests
+- [ ] 10-02-PLAN.md — aitaro-setup npm + checklist; factory aitaro-setup message
+- [ ] 10-03-PLAN.md — aitaro-api uvicorn wrapper, lifespan fail-fast, README 4 steps
