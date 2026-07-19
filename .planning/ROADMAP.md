@@ -16,6 +16,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 - [x] **Phase 8: README & Documentation** - Architecture diagram, stack, run instructions
 - [x] **Phase 9: Backend Structure Refactor** - Split backend into agents + server; split graph by agent/subagent (completed 2026-07-19)
 - [x] **Phase 10: Simple Startup** - One-command local run: deps, MCP build, env checks, backend + frontend (completed 2026-07-19)
+- [ ] **Phase 11: Agent Harness Hardening** - Dead unlock agent, budgets, trust-labeled context, Langfuse v4, lightweight evals
 
 ## Progress
 
@@ -31,6 +32,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 | 8. README & Documentation | Complete | 2026-06-17 |
 | 9. Backend Structure Refactor | Complete | 2026-07-19 |
 | 10. Simple Startup | Complete — ready for verification | 2026-07-20 |
+| 11. Agent Harness Hardening | Not started | - |
 
 ### Phase 9: Backend Structure Refactor
 
@@ -93,3 +95,26 @@ Plans:
 - Required env (`STREAM_API_KEY`, `OPENAI_API_KEY`, `ZEP_API`) fail-fast in setup and lifespan before MCP/LLM init
 - No manual `PYTHONPATH`; canonical path is `uv run aitaro-api`
 - `pytest -q` stays green; pytest pythonpath unchanged
+
+### Phase 11: Agent Harness Hardening
+
+**Goal:** Harden the AiTaro agent harness per provider-neutral best practices: remove dead agent surface, make tool/step budgets explicit, label untrusted memory context, verify Langfuse v4 tracing reaches agents, and add a small eval/regression harness beyond unit mocks.
+
+**Requirements:** SC-11.1, SC-11.2, SC-11.3, SC-11.4, SC-11.5, SC-11.6
+
+**Depends on:** Phase 10
+
+**Success Criteria** (what must be TRUE):
+
+  1. Dead `unlock_card_agent` is removed from factories/state (or wired with a clear use path — prefer remove if unused after Phase 4)
+  2. Tool/step budgets are explicit, documented, and enforceable (beyond silent `MAX_TOOL_ITERATIONS`)
+  3. Zep/user memory context is trust-labeled as untrusted data in agent prompts/context assembly
+  4. Langfuse v4 CallbackHandler + config propagation to router/taro/astro/summarize is verified by tests; optional when keys absent
+  5. A lightweight eval harness exists (fixture scenarios + pass/fail criteria) for at least router + one domain agent path
+  6. `pytest -q` stays green; no new required env keys beyond existing optional Langfuse
+
+**Plans:** 0 plans
+
+Plans:
+
+- [ ] TBD (run `/gsd-plan-phase 11` to break down)

@@ -2,33 +2,32 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-last_updated: "2026-07-19T22:29:01.138Z"
-last_activity: 2026-07-20 — Completed 10-03 aitaro-api lifespan and README
+status: phase_11_added
+last_updated: "2026-07-20T02:02:00.000Z"
+last_activity: 2026-07-20 — Added Phase 11 Agent Harness Hardening
 progress:
-  total_phases: 2
-  completed_phases: 1
-  total_plans: 10
-  completed_plans: 9
-  percent: 90
+  total_phases: 11
+  completed_phases: 9
+  total_plans: 0
+  completed_plans: 0
+  percent: 82
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase complete — ready for verification
+**Status:** Phase 11 context gathered — ready to plan  
 **Last updated:** 2026-07-20
 
 ## Current Position
 
-Phase: 10 (Simple Startup) — READY FOR VERIFICATION
-Plan: 3 of 3
-Status: Phase complete — ready for verification
-Last activity: 2026-07-20 — Completed 10-03 aitaro-api lifespan and README
+Phase: 11-agent-harness-hardening  
+Status: Context gathered — ready for `/gsd-plan-phase 11`  
+Last activity: 2026-07-20 — Discussed Phase 11 (D-01–D-13)
 
 ## Current Phase
 
-Phase 10: Simple Startup — 3 plans in 2 waves
+Phase 11: Agent Harness Hardening — not planned
 
 ## Completed
 
@@ -59,6 +58,7 @@ None
 
 - Phase 9 added: Backend structure refactor — split into agents and server packages; split graph into per-agent and subagent modules
 - Phase 10 added: Simple Startup — one-command local run, MCP build, env checks, remove PYTHONPATH friction
+- Phase 11 added: Agent Harness Hardening — dead unlock agent, budgets, trust-labeled Zep context, Langfuse v4 verify, lightweight evals
 
 ## Performance Metrics
 
