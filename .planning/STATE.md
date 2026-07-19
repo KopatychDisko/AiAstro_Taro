@@ -2,29 +2,29 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-last_updated: "2026-07-19T22:25:01.353Z"
-last_activity: 2026-07-20 — Completed 10-02 aitaro-setup npm and factory message
+status: verifying
+last_updated: "2026-07-19T22:29:01.138Z"
+last_activity: 2026-07-20 — Completed 10-03 aitaro-api lifespan and README
 progress:
   total_phases: 2
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 10
-  completed_plans: 8
-  percent: 80
+  completed_plans: 9
+  percent: 90
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Ready to execute
+**Status:** Phase complete — ready for verification
 **Last updated:** 2026-07-20
 
 ## Current Position
 
-Phase: 10 (Simple Startup) — EXECUTING
+Phase: 10 (Simple Startup) — READY FOR VERIFICATION
 Plan: 3 of 3
-Status: Ready to execute
-Last activity: 2026-07-20 — Completed 10-02 aitaro-setup npm and factory message
+Status: Phase complete — ready for verification
+Last activity: 2026-07-20 — Completed 10-03 aitaro-api lifespan and README
 
 ## Current Phase
 
@@ -51,7 +51,7 @@ None
 - Uses `psycopg2-binary` (no system `pg_config` required for `uv sync`).
 - Tarot MCP requires `npm run build` in `src/tarotmcp` before live runs (copies `card-data.json` into `dist/`).
 - Astro MCP deferred to v2 — backend starts without it.
-- Backend entrypoint today: `PYTHONPATH=src/backend uv run uvicorn server.app:app --reload --port 8000` — Phase 10 should simplify this.
+- Backend entrypoint: `uv run aitaro-api` (127.0.0.1:8000, reload); setup via `uv run aitaro-setup`.
 
 ## Accumulated Context
 
@@ -66,6 +66,7 @@ None
 |-------|------|----------|-------|
 | Phase 10 P01 | 2min | 2 tasks | 7 files |
 | Phase 10 P02 | 2min | 2 tasks | 4 files |
+| Phase 10 P03 | 3min | 2 tasks | 6 files |
 
 ## Decisions
 
@@ -75,3 +76,5 @@ None
 - [Phase 10]: aitaro_setup.main is path + require_env_or_exit only; npm/checklist deferred to Plan 02
 - [Phase 10]: Checklist wording matches RESEARCH discretionary stdout (MCP OK, keys, aitaro-api, login_menu + POSTGRESQL_* reminder)
 - [Phase 10]: Factory missing-dist primary hint is uv run aitaro-setup; legacy npm one-liner secondary
+- [Phase 10]: Bind aitaro-api to 127.0.0.1:8000 with reload=True (T-10-05)
+- [Phase 10]: README Quick start is four steps plus UI; no PYTHONPATH uvicorn (D-08/D-16)

@@ -15,7 +15,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 - [x] **Phase 7: Langfuse Observability** - SDK tracing, optional when keys absent
 - [x] **Phase 8: README & Documentation** - Architecture diagram, stack, run instructions
 - [x] **Phase 9: Backend Structure Refactor** - Split backend into agents + server; split graph by agent/subagent (completed 2026-07-19)
-- [ ] **Phase 10: Simple Startup** - One-command local run: deps, MCP build, env checks, backend + frontend
+- [x] **Phase 10: Simple Startup** - One-command local run: deps, MCP build, env checks, backend + frontend (completed 2026-07-19)
 
 ## Progress
 
@@ -30,7 +30,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 | 7. Langfuse Observability | Complete | 2026-06-17 |
 | 8. README & Documentation | Complete | 2026-06-17 |
 | 9. Backend Structure Refactor | Complete | 2026-07-19 |
-| 10. Simple Startup | Not started | - |
+| 10. Simple Startup | Complete — ready for verification | 2026-07-20 |
 
 ### Phase 9: Backend Structure Refactor
 
@@ -75,7 +75,7 @@ Plans:
   5. README Quick start is ≤5 steps and matches the scripts that actually work
   6. `pytest -q` still green
 
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 
@@ -86,7 +86,7 @@ Plans:
 **Wave 2** *(blocked on Wave 1 completion)*
 
 - [x] 10-02-PLAN.md — aitaro-setup npm + checklist; factory aitaro-setup message
-- [ ] 10-03-PLAN.md — aitaro-api uvicorn wrapper, lifespan fail-fast, README 4 steps
+- [x] 10-03-PLAN.md — aitaro-api uvicorn wrapper, lifespan fail-fast, README 4 steps
 
 **Cross-cutting constraints:**
 
