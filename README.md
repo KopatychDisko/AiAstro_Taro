@@ -74,7 +74,7 @@ npm run build
 
 ```bash
 cd src/backend
-uv run uvicorn app:app --reload --port 8000
+uv run uvicorn server.app:app --reload --port 8000
 ```
 
 ### 5. Run frontend
@@ -131,7 +131,8 @@ python -m pytest -q
 ## Project layout
 
 ```
-src/backend/          FastAPI app + LangGraph workflow
+src/backend/server/   FastAPI HTTP layer (app, auth, schemas, observability)
+src/backend/agents/   LangGraph workflow and domain models
 src/frontend/         Streamlit UI
 src/tarotmcp/         Tarot MCP server (Node/TypeScript)
 tests/                pytest suite
