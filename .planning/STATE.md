@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-19T22:22:03.347Z"
+last_updated: "2026-07-19T22:25:01.353Z"
 last_activity: 2026-07-20 — Completed 10-01 packaging and required_env
 progress:
   total_phases: 2
   completed_phases: 0
   total_plans: 10
-  completed_plans: 7
+  completed_plans: 8
   percent: 0
 ---
 
@@ -22,7 +22,7 @@ progress:
 ## Current Position
 
 Phase: 10 (Simple Startup) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-07-20 — Completed 10-01 packaging and required_env
 
@@ -65,6 +65,8 @@ None
 | Phase | Plan | Duration | Notes |
 |-------|------|----------|-------|
 | Phase 10 P01 | 2min | 2 tasks | 7 files |
+| Phase 10 P02 | 2min | 2 tasks | 4 files |
+| Phase 10 P02 | 2min | 2 tasks | 4 files |
 
 ## Decisions
 
@@ -72,3 +74,5 @@ None
 - [Phase 10]: required_env loads repo-root .env when present; tests no-op loader for isolation
 - [Phase 10]: aitaro_api.main is path-only stub; uvicorn deferred to Plan 03
 - [Phase 10]: aitaro_setup.main is path + require_env_or_exit only; npm/checklist deferred to Plan 02
+- [Phase ?]: Checklist wording matches RESEARCH discretionary stdout (MCP OK, keys, aitaro-api, login_menu + POSTGRESQL_* reminder)
+- [Phase ?]: Factory missing-dist primary hint is uv run aitaro-setup; legacy npm one-liner secondary

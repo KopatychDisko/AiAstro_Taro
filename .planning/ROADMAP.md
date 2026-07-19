@@ -75,7 +75,7 @@ Plans:
   5. README Quick start is ≤5 steps and matches the scripts that actually work
   6. `pytest -q` still green
 
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 
@@ -85,7 +85,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 10-02-PLAN.md — aitaro-setup npm + checklist; factory aitaro-setup message
+- [x] 10-02-PLAN.md — aitaro-setup npm + checklist; factory aitaro-setup message
 - [ ] 10-03-PLAN.md — aitaro-api uvicorn wrapper, lifespan fail-fast, README 4 steps
 
 **Cross-cutting constraints:**
