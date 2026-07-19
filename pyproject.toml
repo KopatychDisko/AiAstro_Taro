@@ -39,6 +39,20 @@ dependencies = [
     "zep-python>=2.0.2",
 ]
 
+[project.scripts]
+aitaro-setup = "aitaro_setup:main"
+aitaro-api = "aitaro_api:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["aitaro_api", "aitaro_setup"]
+
+[tool.setuptools.package-dir]
+"" = "scripts"
+
 [dependency-groups]
 dev = [
     "pytest>=8.3.0",

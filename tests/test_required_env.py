@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import pytest
 
+import server.required_env as required_env_mod
 from server.required_env import (
     REQUIRED_ENV_KEYS,
     format_missing_env_message,
@@ -13,6 +14,12 @@ from server.required_env import (
 )
 
 _SECRET_VALUE = "super-secret-value-never-in-message"
+
+
+@pytest.fixture(autouse=True)
+def _disable_dotenv_load(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Prevent repo .env from restoring keys after monkeypatch.delenv."""
+    monkeypatch.setattr(required_env_mod, "_load_dotenv_from_repo", lambda: None)
 
 
 def _clear_required_env(monkeypatch: pytest.MonkeyPatch) -> None:
