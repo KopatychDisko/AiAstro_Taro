@@ -98,7 +98,7 @@ Each task was committed atomically:
 7. `5bebb36` fix: start without astro MCP when dist is missing
 8. `dd04dc7` docs: clarify D-03 uvicorn startup from repo root
 
-**Plan metadata:** (see docs commit after self-check)
+**Plan metadata:** `a2803ec` (docs: complete plan)
 
 ## Files Created/Modified
 - `tests/*.py` — imports/patches point at `server.*` / `agents.*` only
