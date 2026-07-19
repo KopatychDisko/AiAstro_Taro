@@ -1,12 +1,26 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: Phase 9 added (not planned)
+last_updated: "2026-07-19T20:40:20.726Z"
+progress:
+  total_phases: 1
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
+---
+
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Complete  
-**Last updated:** 2026-06-17
+**Status:** Phase 9 added (not planned)  
+**Last updated:** 2026-07-19
 
 ## Current Phase
 
-All 8 phases complete.
+Phase 9: Backend Structure Refactor — not planned yet
 
 ## Completed
 
@@ -28,3 +42,9 @@ None.
 - `uv sync` may fail on `psycopg2` without `pg_config`; use selective `uv pip install` for dev/test.
 - Tarot MCP requires `npm run build` in `src/tarotmcp` before live runs.
 - Astro MCP deferred to v2.
+
+## Accumulated Context
+
+### Roadmap Evolution
+
+- Phase 9 added: Backend structure refactor — split into agents and server packages; split graph into per-agent and subagent modules
