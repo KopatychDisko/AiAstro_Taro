@@ -76,7 +76,7 @@ Each task was committed atomically:
 1. **Task 1: Memory tools and summarize factory** - `5d366a0` (feat)
 2. **Task 2: Cards unlock factory and create_agents aggregator** - `ec92e91` (feat)
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `3428618` (docs: complete plan)
 
 ## Files Created/Modified
 
