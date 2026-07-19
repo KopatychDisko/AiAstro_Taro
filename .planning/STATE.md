@@ -1,12 +1,12 @@
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 9 planned — ready to execute  
+**Status:** Phase 9 plan check failed — revision required  
 **Last updated:** 2026-07-19
 
 ## Current Phase
 
-Phase 9: Backend Structure Refactor — plans created (`09-01`..`09-03`); ready to execute
+Phase 9: Backend Structure Refactor — plans created (`09-01`..`09-03`); plan check FAILED (see `09-PLAN-CHECK.md`)
 
 ## Completed
 
@@ -21,7 +21,7 @@ Phase 9: Backend Structure Refactor — plans created (`09-01`..`09-03`); ready 
 
 ## Blockers
 
-None.
+- Phase 9 plan check: Plan 01 scope (29 files), Plan 02 broken `&amp;&amp;` verifies, RESEARCH Open Questions unmarked — revise before execute
 
 ## Notes
 
@@ -37,5 +37,5 @@ None.
 
 ### Session
 
-- Stopped at: Phase 9 planning complete (3 plans, 3 waves)
-- Resume: `/gsd-execute-phase 9`
+- Stopped at: Phase 9 plan check failed — revision loop
+- Resume: planner revises per `09-PLAN-CHECK.md`, then re-run plan checker (not execute yet)

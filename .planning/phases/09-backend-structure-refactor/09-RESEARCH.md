@@ -436,15 +436,16 @@ rg -n "from graph|import graph|from auth import|from schemas import|from models 
 
 **If wrong:** A1/A2 are discretion — planner picks one and updates patch map; not user blockers.
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Where should `AsyncZep` live for take_context/add_memory?**
-   - What we know: Today constructed inside `setup_workflow` in `nodes.py`; tests patch `graph.nodes.AsyncZep`.
-   - What's unclear: Whether nodes become factory-injected or stay closures in `workflow.py`.
-   - Recommendation: Keep Zep construction in `agents.workflow.setup_workflow` (or `memory.nodes` with explicit import in workflow) and document the single patch string in the plan’s test task.
+1. **Where should `AsyncZep` live for take_context/add_memory?** — **RESOLVED**
+   - **Decision:** Keep `AsyncZep` import + construction inside `agents/workflow.py` (`setup_workflow`). Keep `take_context` / `add_memory` as nested closures there (same as today’s `graph/nodes.py`).
+   - **Patch site:** `agents.workflow.AsyncZep` (and `agents.workflow.create_agents`).
+   - **Rationale:** Stable test patch targets; avoids shifting mocks if memory nodes were extracted.
 
-2. **Should `create_agents` stay one function in `agents/factories.py`?**
-   - Recommendation: Yes — thin aggregator calling per-agent factories; preserves `Agents` dataclass and existing mocks.
+2. **Should `create_agents` stay one function in `agents/factories.py`?** — **RESOLVED**
+   - **Decision:** Yes — thin async aggregator in `agents/factories.py` calling per-agent factories; returns the same `Agents` dataclass fields.
+   - **Rationale:** Preserves mock/`make_mock_agents` shape; workflow imports `create_agents` from factories (patch at lookup site `agents.workflow.create_agents`).
 
 ## Environment Availability
 
