@@ -28,7 +28,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 | 6. Reliability | Complete | 2026-06-17 |
 | 7. Langfuse Observability | Complete | 2026-06-17 |
 | 8. README & Documentation | Complete | 2026-06-17 |
-| 9. Backend Structure Refactor | Not started | - |
+| 9. Backend Structure Refactor | In Progress | - |
 
 ### Phase 9: Backend Structure Refactor
 
@@ -39,16 +39,17 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 **Depends on:** Phase 8
 
 **Success Criteria** (what must be TRUE):
+
   1. Backend has a clear `server` package (FastAPI app, auth, stream schemas, observability) separate from agent/graph code
   2. Agent/graph code lives under an `agents` (or equivalent) package, not mixed with HTTP entrypoints
   3. Graph is split into modules/folders by agent and subagent (router, taro, astro, memory, card mapping, routing) — not one large `nodes.py` / `agent.py`
   4. Public imports and `pytest -q` stay green after the move; behavior unchanged
 
-**Plans:** 6 plans
+**Plans:** 1/6 plans executed
 
 Plans:
 
-- [ ] 09-01-PLAN.md — Agents foundation (models, state, routing, config, cards mapping)
+- [x] 09-01-PLAN.md — Agents foundation (models, state, routing, config, cards mapping)
 - [ ] 09-02-PLAN.md — Per-agent router/taro/astro factories (MCP ../../../)
 - [ ] 09-03-PLAN.md — Memory/cards factories + create_agents aggregator
 - [ ] 09-04-PLAN.md — Workflow nodes + setup_workflow public export

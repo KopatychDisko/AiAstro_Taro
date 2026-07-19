@@ -1,12 +1,34 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+last_updated: "2026-07-19T21:04:01.647Z"
+last_activity: 2026-07-19
+progress:
+  total_phases: 1
+  completed_phases: 0
+  total_plans: 7
+  completed_plans: 1
+  percent: 0
+---
+
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 9 plans revised (6 waves) — ready to execute  
+**Status:** Executing Phase 9 — Plan 01 complete  
 **Last updated:** 2026-07-19
+
+## Current Position
+
+Phase: 09-backend-structure-refactor
+Plan: 2 of 6 in current phase
+Status: Executing
+Last activity: 2026-07-19
 
 ## Current Phase
 
-Phase 9: Backend Structure Refactor — plans revised after plan-check (`09-01`..`09-06`); ready to execute
+Phase 9: Backend Structure Refactor — executing (09-01 complete; next 09-02)
 
 ## Completed
 
@@ -18,14 +40,15 @@ Phase 9: Backend Structure Refactor — plans revised after plan-check (`09-01`.
 - Phase 6: Reliability (REL-01–04)
 - Phase 7: Langfuse Observability (OBS-01–03)
 - Phase 8: README & Documentation (DOC-01–03)
+- Phase 9 Plan 01: Agents shared foundation (models, state, routing, config, cards mapping)
 
 ## Blockers
 
-- Phase 9 plan check: Plan 01 scope (29 files), Plan 02 broken `&amp;&amp;` verifies, RESEARCH Open Questions unmarked — revise before execute
+None
 
 ## Notes
 
-- `uv sync` may fail on `psycopg2` without `pg_config`; use selective `uv pip install` for dev/test.
+- `uv sync` may fail on `psycopg2` without `pg_config`; use selective `uv pip install` for dev/test or existing `.venv`.
 - Tarot MCP requires `npm run build` in `src/tarotmcp` before live runs.
 - Astro MCP deferred to v2.
 
@@ -35,7 +58,22 @@ Phase 9: Backend Structure Refactor — plans revised after plan-check (`09-01`.
 
 - Phase 9 added: Backend structure refactor — split into agents and server packages; split graph into per-agent and subagent modules
 
+### Decisions
+
+- Import TaroCard via `agents.models` under `PYTHONPATH=src/backend`
+- Empty package `__init__.py` for `agents/` and `agents/cards/`
+- [Phase 09]: Import TaroCard via agents.models under PYTHONPATH=src/backend
+- [Phase 09]: Empty package __init__.py for agents/ and agents/cards/
+
+### Performance Metrics
+
+| Phase | Plan | Duration | Tasks | Files |
+|-------|------|----------|-------|-------|
+| 09 | 01 | 2min | 2 | 8 |
+| Phase 09 P01 | 2min | 2 tasks | 8 files |
+
 ### Session
 
-- Stopped at: Phase 9 planning revision complete (6 plans)
-- Resume: re-run plan checker, then `/gsd-execute-phase 9`
+- Stopped at: Completed 09-01-PLAN.md
+- Resume: `/gsd-execute-phase 9` (continue from 09-02)
+- Last session: 2026-07-19T21:03:26Z
