@@ -80,7 +80,7 @@ Each task was committed atomically (TDD RED → GREEN):
    - `c3e275a` (test) — failing frontend spread_name / no-unlock_name tests
    - `c0d640a` (feat) — frontend schema/session/templates migration
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `495b253` (docs: complete plan)
 
 ## Files Created/Modified
 
