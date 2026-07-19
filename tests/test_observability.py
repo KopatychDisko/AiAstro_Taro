@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 
-from observability import build_langfuse_callbacks
+from server.observability import build_langfuse_callbacks
 
 
 def test_build_langfuse_callbacks_empty_without_keys(monkeypatch) -> None:

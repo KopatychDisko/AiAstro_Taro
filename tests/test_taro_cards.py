@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from langchain_core.messages import ToolMessage
 
-from models import TaroCard
-from graph.taro_card_mapping import (
+from agents.models import TaroCard
+from agents.cards.mapping import (
     extract_cards_from_messages,
     parse_mcp_reading_text,
     parse_mcp_tool_payload,

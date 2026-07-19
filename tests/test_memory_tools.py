@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, patch
 import pytest
 from langchain_core.runnables import RunnableConfig
 
-from graph.agents.agent import search_facts, search_nodes
+from agents.memory.tools import search_facts, search_nodes
 
 
 @pytest.mark.asyncio
@@ -19,7 +19,7 @@ async def test_search_facts_returns_facts_with_limit(runnable_config: dict) -> N
     ]
 
     with patch(
-        "graph.agents.agent.zep.graph.search",
+        "agents.memory.tools.zep.graph.search",
         AsyncMock(return_value=mock_edges),
     ) as mock_search:
         facts = await search_facts.ainvoke(
@@ -43,7 +43,7 @@ async def test_search_nodes_returns_summaries_with_limit(runnable_config: dict) 
     ]
 
     with patch(
-        "graph.agents.agent.zep.graph.search",
+        "agents.memory.tools.zep.graph.search",
         AsyncMock(return_value=mock_nodes),
     ) as mock_search:
         nodes = await search_nodes.ainvoke(

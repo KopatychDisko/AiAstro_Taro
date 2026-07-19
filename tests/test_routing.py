@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from langchain_core.messages import AIMessage, HumanMessage
 
-from graph.routing import MAX_TOOL_ITERATIONS, capped_tools_condition
+from agents.routing import MAX_TOOL_ITERATIONS, capped_tools_condition
 
 
 def test_capped_tools_condition_ends_when_limit_reached() -> None:

@@ -12,8 +12,8 @@ from fastapi import Depends, FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.testclient import TestClient
 
-from auth import verify_stream_api_key
-from schemas import ExtractData, UserData
+from server.auth import verify_stream_api_key
+from server.schemas import ExtractData, UserData
 
 
 def _build_test_app(mock_stream_agent):

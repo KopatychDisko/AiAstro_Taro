@@ -41,10 +41,10 @@ async def test_router_node_next_node_for_intents(
     mock_zep = make_mock_zep()
 
     with (
-        patch("graph.nodes.create_agents", AsyncMock(return_value=mock_agents)),
-        patch("graph.nodes.AsyncZep", return_value=mock_zep),
+        patch("agents.workflow.create_agents", AsyncMock(return_value=mock_agents)),
+        patch("agents.workflow.AsyncZep", return_value=mock_zep),
     ):
-        from graph.nodes import setup_workflow
+        from agents.workflow import setup_workflow
 
         compiled = await setup_workflow()
         config = RunnableConfig(configurable={"thread_id": "test-user-1"})

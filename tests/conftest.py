@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from langchain_core.messages import AIMessage, HumanMessage
 
-from graph.agents.schemas import Agents, RouterOutput, Summarize
+from agents.state import Agents, RouterOutput, Summarize
 
 
 def make_mock_zep() -> MagicMock:
