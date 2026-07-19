@@ -13,7 +13,14 @@ from .prompt import taro_prompt
 async def create_tarot_agent():
     llm = ChatOpenAI(base_url=base_url, model='openai/gpt-5-mini', temperature=0.2)
 
-    tarot_mcp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../tarotmcp/dist/index.js"))
+    tarot_mcp_path = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "../../../tarotmcp/dist/index.js")
+    )
+    if not os.path.isfile(tarot_mcp_path):
+        raise FileNotFoundError(
+            f"Tarot MCP not built: missing {tarot_mcp_path}. "
+            "Run: cd src/tarotmcp && npm install && npm run build"
+        )
 
     client = MultiServerMCPClient(
         {
