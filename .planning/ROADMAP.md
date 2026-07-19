@@ -113,8 +113,11 @@ Plans:
   5. A lightweight eval harness exists (fixture scenarios + pass/fail criteria) for at least router + one domain agent path
   6. `pytest -q` stays green; no new required env keys beyond existing optional Langfuse
 
-**Plans:** 0 plans
+**Plans:** 4 plans
 
 Plans:
 
-- [ ] TBD (run `/gsd-plan-phase 11` to break down)
+- [ ] 11-01-PLAN.md — Land Langfuse v4 wiring + config-prop tests (D-10, D-11)
+- [ ] 11-02-PLAN.md — Hard-delete unlock agent; rename unlock_name → spread_name E2E (D-01–D-03)
+- [ ] 11-03-PLAN.md — Tool-cap structured logging + trust-label take_context (D-04–D-09)
+- [ ] 11-04-PLAN.md — Offline DeepEval router+taro suite behind eval marker (D-12, D-13)
