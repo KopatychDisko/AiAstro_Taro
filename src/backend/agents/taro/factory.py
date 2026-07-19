@@ -19,7 +19,8 @@ async def create_tarot_agent():
     if not os.path.isfile(tarot_mcp_path):
         raise FileNotFoundError(
             f"Tarot MCP not built: missing {tarot_mcp_path}. "
-            "Run: cd src/tarotmcp && npm install && npm run build"
+            "Run: uv run aitaro-setup "
+            "(or: cd src/tarotmcp && npm install && npm run build)"
         )
 
     client = MultiServerMCPClient(
