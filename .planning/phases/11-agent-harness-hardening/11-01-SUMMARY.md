@@ -74,7 +74,7 @@ Each task was committed atomically:
 1. **Task 1: Land Langfuse v4 wiring from working tree** - `c425744` (feat)
 2. **Task 2: Wave 0 config-propagation integration tests** - `4f9cfe9` (test)
 
-**Plan metadata:** see docs commit after SUMMARY land
+**Plan metadata:** `9ab9441` (docs: complete plan)
 
 ## Files Created/Modified
 
