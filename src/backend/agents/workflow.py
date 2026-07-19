@@ -11,6 +11,7 @@ import asyncio
 from agents.factories import create_agents
 from agents.state import AgentState
 from agents.routing import capped_tools_condition
+from agents.context_trust import wrap_untrusted_user_memory
 from agents.router.node import create_router_node, route_from_router
 from agents.taro.node import create_taro_node
 from agents.astro.node import create_astro_node
@@ -39,7 +40,7 @@ async def setup_workflow():
             logger.exception("Failed to fetch Zep user context")
             context = f'User name: {user_name}'
 
-        return {'context': context}
+        return {'context': wrap_untrusted_user_memory(context)}
 
     async def add_memory(state, config: RunnableConfig):
         session_id = config['configurable']["thread_id"]
