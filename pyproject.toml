@@ -47,6 +47,6 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-pythonpath = ["src/backend"]
+pythonpath = ["src/backend", "."]
 asyncio_mode = "auto"
 testpaths = ["tests"]
