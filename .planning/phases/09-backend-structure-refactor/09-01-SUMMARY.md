@@ -77,7 +77,7 @@ Each task was committed atomically:
 1. **Task 1: Create agents models, state, routing, config** - `a93e4c2` (feat)
 2. **Task 2: Create cards mapping module** - `008c7cf` (feat)
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `7bf6ff5` (docs: complete plan)
 
 ## Files Created/Modified
 

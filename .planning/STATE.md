@@ -60,8 +60,6 @@ None
 
 ### Decisions
 
-- Import TaroCard via `agents.models` under `PYTHONPATH=src/backend`
-- Empty package `__init__.py` for `agents/` and `agents/cards/`
 - [Phase 09]: Import TaroCard via agents.models under PYTHONPATH=src/backend
 - [Phase 09]: Empty package __init__.py for agents/ and agents/cards/
 
@@ -70,7 +68,6 @@ None
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 09 | 01 | 2min | 2 | 8 |
-| Phase 09 P01 | 2min | 2 tasks | 8 files |
 
 ### Session
 
