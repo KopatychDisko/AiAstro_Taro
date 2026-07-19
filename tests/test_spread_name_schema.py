@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import importlib
+import importlib.util
 from dataclasses import fields
+from pathlib import Path
 
 import pytest
 from langchain_core.messages import ToolMessage
@@ -12,6 +14,22 @@ from agents.state import Agents
 from server.schemas import ExtractData
 
 from tests.test_taro_cards import SAMPLE_MCP_READING
+
+_FRONTEND_SCHEMA_PATH = (
+    Path(__file__).resolve().parents[1] / "src" / "frontend" / "schema.py"
+)
+
+
+def _load_frontend_extract_data():
+    spec = importlib.util.spec_from_file_location(
+        "frontend_schema_under_test",
+        _FRONTEND_SCHEMA_PATH,
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load frontend schema from {_FRONTEND_SCHEMA_PATH}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.ExtractData
 
 
 def test_unlock_card_model_removed() -> None:
@@ -43,6 +61,25 @@ def test_extract_data_uses_spread_name() -> None:
     assert "unlock_name" not in model_fields
     payload = ExtractData(spread_name="Three Card")
     assert payload.model_dump()["spread_name"] == "Three Card"
+
+
+def test_frontend_extract_data_uses_spread_name() -> None:
+    frontend_extract = _load_frontend_extract_data()
+    model_fields = frontend_extract.model_fields
+    assert "spread_name" in model_fields
+    assert "unlock_name" not in model_fields
+    payload = frontend_extract(spread_name="Celtic Cross")
+    assert payload.model_dump()["spread_name"] == "Celtic Cross"
+
+
+def test_frontend_sources_have_no_unlock_name() -> None:
+    frontend_root = Path(__file__).resolve().parents[1] / "src" / "frontend"
+    hits: list[str] = []
+    for path in frontend_root.rglob("*.py"):
+        text = path.read_text(encoding="utf-8")
+        if "unlock_name" in text or "unlock_card" in text:
+            hits.append(str(path.relative_to(frontend_root.parent.parent)))
+    assert hits == []
 
 
 @pytest.mark.asyncio
