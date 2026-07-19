@@ -37,5 +37,5 @@ Phase 9: Backend Structure Refactor — plans revised after plan-check (`09-01`.
 
 ### Session
 
-- Stopped at: Phase 9 plan check failed — revision loop
-- Resume: planner revises per `09-PLAN-CHECK.md`, then re-run plan checker (not execute yet)
+- Stopped at: Phase 9 planning revision complete (6 plans)
+- Resume: re-run plan checker, then `/gsd-execute-phase 9`
