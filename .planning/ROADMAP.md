@@ -14,7 +14,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 - [x] **Phase 6: Reliability** - Best-effort memory, LLM errors, retries, tool-loop caps
 - [x] **Phase 7: Langfuse Observability** - SDK tracing, optional when keys absent
 - [x] **Phase 8: README & Documentation** - Architecture diagram, stack, run instructions
-- [ ] **Phase 9: Backend Structure Refactor** - Split backend into agents + server; split graph by agent/subagent
+- [x] **Phase 9: Backend Structure Refactor** - Split backend into agents + server; split graph by agent/subagent (completed 2026-07-19)
 
 ## Progress
 
@@ -45,7 +45,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
   3. Graph is split into modules/folders by agent and subagent (router, taro, astro, memory, card mapping, routing) — not one large `nodes.py` / `agent.py`
   4. Public imports and `pytest -q` stay green after the move; behavior unchanged
 
-**Plans:** 5/6 plans executed
+**Plans:** 6/6 plans complete
 
 Plans:
 
@@ -54,4 +54,4 @@ Plans:
 - [x] 09-03-PLAN.md — Memory/cards factories + create_agents aggregator
 - [x] 09-04-PLAN.md — Workflow nodes + setup_workflow public export
 - [x] 09-05-PLAN.md — Server package + README uvicorn server.app:app
-- [ ] 09-06-PLAN.md — Hard-cut tests, delete legacy graph/flat modules, grep gates
+- [x] 09-06-PLAN.md — Hard-cut tests, delete legacy graph/flat modules, grep gates
