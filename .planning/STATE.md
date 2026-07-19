@@ -1,12 +1,12 @@
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 9 research complete — ready to plan  
+**Status:** Phase 9 planned — ready to execute  
 **Last updated:** 2026-07-19
 
 ## Current Phase
 
-Phase 9: Backend Structure Refactor — research complete (`09-RESEARCH.md`); ready for planning
+Phase 9: Backend Structure Refactor — plans created (`09-01`..`09-03`); ready to execute
 
 ## Completed
 
@@ -37,5 +37,5 @@ None.
 
 ### Session
 
-- Stopped at: Phase 9 research complete
-- Resume: `/gsd-plan-phase` using `.planning/phases/09-backend-structure-refactor/09-RESEARCH.md`
+- Stopped at: Phase 9 planning complete (3 plans, 3 waves)
+- Resume: `/gsd-execute-phase 9`
