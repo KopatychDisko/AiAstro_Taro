@@ -5,14 +5,12 @@ from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import ToolNode
 
 from agents.config import base_url
+from agents.memory.tools import search_facts, search_nodes
 
 from .prompt import astro_prompt
 
 
 async def create_astro_agent():
-    # Memory tools land in Plan 03 (agents.memory.tools); lazy import keeps this package importable now.
-    from agents.memory.tools import search_facts, search_nodes
-
     llm = ChatOpenAI(model='openai/gpt-5-mini', base_url=base_url, temperature=0.7)
 
     astro_mcp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../astromcp/dist/main.js"))

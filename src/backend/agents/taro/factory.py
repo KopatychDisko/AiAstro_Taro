@@ -5,14 +5,12 @@ from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import ToolNode
 
 from agents.config import base_url
+from agents.memory.tools import search_facts, search_nodes
 
 from .prompt import taro_prompt
 
 
 async def create_tarot_agent():
-    # Memory tools land in Plan 03 (agents.memory.tools); lazy import keeps this package importable now.
-    from agents.memory.tools import search_facts, search_nodes
-
     llm = ChatOpenAI(base_url=base_url, model='openai/gpt-5-mini', temperature=0.2)
 
     tarot_mcp_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../tarotmcp/dist/index.js"))
