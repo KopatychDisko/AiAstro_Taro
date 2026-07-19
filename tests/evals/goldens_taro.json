@@ -1,0 +1,18 @@
+[
+  {
+    "input": "# Three Card Spread Reading\n\n**Question:** Career?\n\n### 1. Past\n**The Fool** (upright)\n\n### 2. Present\n**The Magician** (reversed)\n\n### 3. Future\n**Death** (upright)\n",
+    "expected_output": "Three Card"
+  },
+  {
+    "input": "# Celtic Cross Reading\n\n**Question:** Love?\n\n### 1. Present\n**The Star** (upright)\n\n### 2. Challenge\n**The Tower** (reversed)\n",
+    "expected_output": "Celtic Cross"
+  },
+  {
+    "input": "# Single Card Reading\n\n### 1. Focus\n**The Sun** (upright)\n",
+    "expected_output": "Single Card"
+  },
+  {
+    "input": "# Horseshoe Spread Reading\n\n### 1. Past\n**The Moon** (reversed)\n",
+    "expected_output": "Horseshoe"
+  }
+]

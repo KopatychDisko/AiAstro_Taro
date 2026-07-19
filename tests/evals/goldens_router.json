@@ -1,0 +1,26 @@
+[
+  {
+    "input": "Draw three tarot cards about my career path",
+    "expected_output": "taro_node"
+  },
+  {
+    "input": "Please do a Celtic Cross reading for me",
+    "expected_output": "taro_node"
+  },
+  {
+    "input": "What does my natal chart say about love this year?",
+    "expected_output": "astro_node"
+  },
+  {
+    "input": "Can you look at my planetary transits for next month?",
+    "expected_output": "astro_node"
+  },
+  {
+    "input": "How are you feeling today?",
+    "expected_output": "add_memory"
+  },
+  {
+    "input": "Thanks, that was helpful",
+    "expected_output": "add_memory"
+  }
+]
