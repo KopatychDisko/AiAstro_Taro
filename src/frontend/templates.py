@@ -578,5 +578,5 @@ tarot_spreads = {
     "Shadow Work": render_shadow                # 5 карт — психологическая интеграция
 }
 
-def create_html_taro(cards, name):
-    tarot_spreads[name](cards)
+def create_html_taro(cards, spread_name):
+    tarot_spreads[spread_name](cards)

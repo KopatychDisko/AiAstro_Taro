@@ -43,7 +43,7 @@ for msg in st.session_state.messages:
     avatar = st.session_state.user_avatar if msg['role'] == 'user' else st.session_state.bot_avatar
     with st.chat_message(msg['role'], avatar=avatar):
         if msg.get('cards'):
-            create_html_taro(msg['cards'], msg['unlock_name'])    
+            create_html_taro(msg['cards'], msg['spread_name'])    
         st.markdown(msg['content'])
         
 with st.sidebar:
@@ -124,14 +124,14 @@ if st.session_state.wait:
                     st.session_state.ai_msg = data.message_to_user
                     
                     st.session_state.cards = data.taro_cards
-                    st.session_state.unlock_name = data.unlock_name
+                    st.session_state.spread_name = data.spread_name
                     
-                    st.session_state.messages.append({'role': 'ai', 'content': st.session_state.ai_msg, 'cards': st.session_state.cards, 'unlock_name': st.session_state.unlock_name})
+                    st.session_state.messages.append({'role': 'ai', 'content': st.session_state.ai_msg, 'cards': st.session_state.cards, 'spread_name': st.session_state.spread_name})
     
     with st.chat_message('ai', avatar=st.session_state.bot_avatar):
         if st.session_state.get('cards'):
             html_code = create_html_taro(st.session_state.cards, 
-                            st.session_state.unlock_name)
+                            st.session_state.spread_name)
         add_message(st.user.sub, 'bot', st.session_state.ai_msg)
         st.write_stream(stream_text(st.session_state.ai_msg))
         
