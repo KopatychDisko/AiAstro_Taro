@@ -72,7 +72,7 @@ Each task was committed atomically:
 1. **Task 1: Per-agent node modules** - `0bc28e0` (feat)
 2. **Task 2: workflow setup_workflow and public export** - `c1676e0` (feat)
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `cfeb980` (docs: complete plan)
 
 ## Files Created/Modified
 
