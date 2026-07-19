@@ -2,28 +2,29 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: phase_10_planned
-last_updated: "2026-07-20T01:15:00.000Z"
-last_activity: 2026-07-20
+status: executing
+last_updated: "2026-07-19T22:21:40.016Z"
+last_activity: 2026-07-19 -- Phase 10 execution started
 progress:
-  total_phases: 10
-  completed_phases: 9
-  total_plans: 3
-  completed_plans: 0
-  percent: 90
+  total_phases: 2
+  completed_phases: 0
+  total_plans: 10
+  completed_plans: 7
+  percent: 0
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 10 planned — ready to execute  
+**Status:** Ready to execute
 **Last updated:** 2026-07-20
 
 ## Current Position
 
-Phase: 10-simple-startup  
-Status: Planned (`10-01` / `10-02` / `10-03`)  
-Last activity: 2026-07-20
+Phase: 10 (Simple Startup) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
+Last activity: 2026-07-19 -- Phase 10 execution started
 
 ## Current Phase
 
@@ -58,3 +59,16 @@ None
 
 - Phase 9 added: Backend structure refactor — split into agents and server packages; split graph into per-agent and subagent modules
 - Phase 10 added: Simple Startup — one-command local run, MCP build, env checks, remove PYTHONPATH friction
+
+## Performance Metrics
+
+| Phase | Plan | Duration | Notes |
+|-------|------|----------|-------|
+| Phase 10 P01 | 2min | 2 tasks | 7 files |
+
+## Decisions
+
+- [Phase 10]: setuptools py-modules from scripts/ only — never packages=find under src/ (D-05)
+- [Phase 10]: required_env loads repo-root .env when present; tests no-op loader for isolation
+- [Phase 10]: aitaro_api.main is path-only stub; uvicorn deferred to Plan 03
+- [Phase 10]: aitaro_setup.main is path + require_env_or_exit only; npm/checklist deferred to Plan 02

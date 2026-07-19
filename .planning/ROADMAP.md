@@ -67,6 +67,7 @@ Plans:
 **Depends on:** Phase 9
 
 **Success Criteria** (what must be TRUE):
+
   1. A root script or documented one-liner installs Python deps (`uv sync`), builds tarot MCP (`npm run build` including card-data), and prints clear next steps
   2. Backend starts with `uv run` / script from repo root without manual `PYTHONPATH=src/backend` (packaging or wrapper handles it)
   3. Missing required env (`OPENAI_API_KEY`, `ZEP_API`, `STREAM_API_KEY`, …) fails fast with actionable messages before MCP/LLM init
@@ -74,10 +75,21 @@ Plans:
   5. README Quick start is ≤5 steps and matches the scripts that actually work
   6. `pytest -q` still green
 
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
 
-- [ ] 10-01-PLAN.md — Wave 0: setuptools scripts packaging, required_env helper, Nyquist tests
+**Wave 1**
+
+- [x] 10-01-PLAN.md — Wave 0: setuptools scripts packaging, required_env helper, Nyquist tests
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 10-02-PLAN.md — aitaro-setup npm + checklist; factory aitaro-setup message
 - [ ] 10-03-PLAN.md — aitaro-api uvicorn wrapper, lifespan fail-fast, README 4 steps
+
+**Cross-cutting constraints:**
+
+- Required env (`STREAM_API_KEY`, `OPENAI_API_KEY`, `ZEP_API`) fail-fast in setup and lifespan before MCP/LLM init
+- No manual `PYTHONPATH`; canonical path is `uv run aitaro-api`
+- `pytest -q` stays green; pytest pythonpath unchanged
