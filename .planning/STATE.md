@@ -2,32 +2,33 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: phase_11_planned
-last_updated: "2026-07-20T02:30:00.000Z"
-last_activity: 2026-07-20 — Planned Phase 11 (4 plans)
+status: executing
+last_updated: "2026-07-19T23:29:41.242Z"
+last_activity: 2026-07-20 — Completed 11-01-PLAN.md
 progress:
   total_phases: 11
-  completed_phases: 9
+  completed_phases: 10
   total_plans: 4
-  completed_plans: 0
-  percent: 82
+  completed_plans: 1
+  percent: 25
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 11 planned — ready to execute  
+**Status:** Phase 11 executing — plan 01 complete  
 **Last updated:** 2026-07-20
 
 ## Current Position
 
-Phase: 11-agent-harness-hardening  
-Status: Planned (4 plans) — ready for `/gsd-execute-phase 11`  
-Last activity: 2026-07-20 — Created 11-01..11-04 PLAN.md
+Phase: 11 (agent-harness-hardening) — EXECUTING  
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-07-20 — Completed 11-01-PLAN.md
 
 ## Current Phase
 
-Phase 11: Agent Harness Hardening — planned (4 plans, 4 waves)
+Phase 11: Agent Harness Hardening — executing (1/4 plans)
 
 ## Completed
 
@@ -40,6 +41,7 @@ Phase 11: Agent Harness Hardening — planned (4 plans, 4 waves)
 - Phase 7: Langfuse Observability (OBS-01–03)
 - Phase 8: README & Documentation (DOC-01–03)
 - Phase 9: Backend Structure Refactor (SC-01–04) — verified
+- Phase 10: Simple Startup — verified
 
 ## Blockers
 
@@ -67,6 +69,7 @@ None
 | Phase 10 P01 | 2min | 2 tasks | 7 files |
 | Phase 10 P02 | 2min | 2 tasks | 4 files |
 | Phase 10 P03 | 3min | 2 tasks | 6 files |
+| Phase 11 P01 | 2min | 2 tasks | 10 files |
 
 ## Decisions
 
@@ -78,3 +81,6 @@ None
 - [Phase 10]: Factory missing-dist primary hint is uv run aitaro-setup; legacy npm one-liner secondary
 - [Phase 10]: Bind aitaro-api to 127.0.0.1:8000 with reload=True (T-10-05)
 - [Phase 10]: README Quick start is four steps plus UI; no PYTHONPATH uvicorn (D-08/D-16)
+- [Phase 11]: Landed existing WIP Langfuse v4 API rather than inventing a second wrapper
+- [Phase 11]: Kept astro config=config while astro remains (Claude discretion / D-10)
+- [Phase 11]: Config-prop summarize assertions accept LangGraph AsyncCallbackManager wrap

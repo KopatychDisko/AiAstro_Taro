@@ -113,11 +113,28 @@ Plans:
   5. A lightweight eval harness exists (fixture scenarios + pass/fail criteria) for at least router + one domain agent path
   6. `pytest -q` stays green; no new required env keys beyond existing optional Langfuse
 
-**Plans:** 4 plans
+**Plans:** 1/4 plans executed
 
 Plans:
 
-- [ ] 11-01-PLAN.md — Land Langfuse v4 wiring + config-prop tests (D-10, D-11)
+**Wave 1**
+
+- [x] 11-01-PLAN.md — Land Langfuse v4 wiring + config-prop tests (D-10, D-11)
+
+**Wave 2** *(blocked on Wave 1)*
+
 - [ ] 11-02-PLAN.md — Hard-delete unlock agent; rename unlock_name → spread_name E2E (D-01–D-03)
+
+**Wave 3** *(blocked on Waves 1–2)*
+
 - [ ] 11-03-PLAN.md — Tool-cap structured logging + trust-label take_context (D-04–D-09)
+
+**Wave 4** *(blocked on Waves 2–3; human deepeval legitimacy gate)*
+
 - [ ] 11-04-PLAN.md — Offline DeepEval router+taro suite behind eval marker (D-12, D-13)
+
+**Cross-cutting constraints:**
+
+- Langfuse keys remain optional; no Confident AI; no live Langfuse gate
+- Default `pytest -q` excludes `@pytest.mark.eval`
+- Astro removal / token budgets deferred
