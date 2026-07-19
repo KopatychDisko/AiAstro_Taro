@@ -3,32 +3,32 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-19T23:29:41.242Z"
-last_activity: 2026-07-20 — Completed 11-01-PLAN.md
+last_updated: "2026-07-19T23:33:16.789Z"
+last_activity: 2026-07-20 — Completed 11-02-PLAN.md
 progress:
-  total_phases: 11
-  completed_phases: 10
-  total_plans: 4
-  completed_plans: 1
-  percent: 25
+  total_phases: 3
+  completed_phases: 1
+  total_plans: 14
+  completed_plans: 11
+  percent: 79
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 11 executing — plan 01 complete  
+**Status:** Phase 11 executing — plan 02 complete  
 **Last updated:** 2026-07-20
 
 ## Current Position
 
 Phase: 11 (agent-harness-hardening) — EXECUTING  
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
-Last activity: 2026-07-20 — Completed 11-01-PLAN.md
+Last activity: 2026-07-20 — Completed 11-02-PLAN.md
 
 ## Current Phase
 
-Phase 11: Agent Harness Hardening — executing (1/4 plans)
+Phase 11: Agent Harness Hardening — executing (2/4 plans)
 
 ## Completed
 
@@ -70,6 +70,7 @@ None
 | Phase 10 P02 | 2min | 2 tasks | 4 files |
 | Phase 10 P03 | 3min | 2 tasks | 6 files |
 | Phase 11 P01 | 2min | 2 tasks | 10 files |
+| Phase 11 P02 | 2min | 2 tasks | 12 files |
 
 ## Decisions
 
@@ -84,3 +85,6 @@ None
 - [Phase 11]: Landed existing WIP Langfuse v4 API rather than inventing a second wrapper
 - [Phase 11]: Kept astro config=config while astro remains (Claude discretion / D-10)
 - [Phase 11]: Config-prop summarize assertions accept LangGraph AsyncCallbackManager wrap
+- [Phase 11]: Hard-delete unlock agent surface rather than wire it (D-01)
+- [Phase 11]: Rename unlock_name → spread_name end-to-end; no dual-write (D-02/D-03)
+- [Phase 11]: create_html_taro param renamed name → spread_name for clarity
