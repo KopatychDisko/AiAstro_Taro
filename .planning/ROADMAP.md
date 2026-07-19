@@ -32,7 +32,7 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
 | 8. README & Documentation | Complete | 2026-06-17 |
 | 9. Backend Structure Refactor | Complete | 2026-07-19 |
 | 10. Simple Startup | Complete — ready for verification | 2026-07-20 |
-| 11. Agent Harness Hardening | In Progress — 2/4 plans | - |
+| 11. Agent Harness Hardening | In Progress — 3/4 plans | - |
 
 ### Phase 9: Backend Structure Refactor
 
@@ -113,7 +113,7 @@ Plans:
   5. A lightweight eval harness exists (fixture scenarios + pass/fail criteria) for at least router + one domain agent path
   6. `pytest -q` stays green; no new required env keys beyond existing optional Langfuse
 
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 Plans:
 
@@ -127,7 +127,7 @@ Plans:
 
 **Wave 3** *(blocked on Waves 1–2)*
 
-- [ ] 11-03-PLAN.md — Tool-cap structured logging + trust-label take_context (D-04–D-09)
+- [x] 11-03-PLAN.md — Tool-cap structured logging + trust-label take_context (D-04–D-09)
 
 **Wave 4** *(blocked on Waves 2–3; human deepeval legitimacy gate)*
 

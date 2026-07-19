@@ -3,32 +3,32 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-19T23:33:16.789Z"
-last_activity: 2026-07-20 — Completed 11-02-PLAN.md
+last_updated: "2026-07-19T23:35:52.837Z"
+last_activity: 2026-07-20 — Completed 11-03-PLAN.md
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 14
-  completed_plans: 11
-  percent: 79
+  completed_plans: 12
+  percent: 86
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 11 executing — plan 02 complete  
+**Status:** Phase 11 executing — plan 03 complete  
 **Last updated:** 2026-07-20
 
 ## Current Position
 
 Phase: 11 (agent-harness-hardening) — EXECUTING  
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
-Last activity: 2026-07-20 — Completed 11-02-PLAN.md
+Last activity: 2026-07-20 — Completed 11-03-PLAN.md
 
 ## Current Phase
 
-Phase 11: Agent Harness Hardening — executing (2/4 plans)
+Phase 11: Agent Harness Hardening — executing (3/4 plans)
 
 ## Completed
 
@@ -71,6 +71,7 @@ None
 | Phase 10 P03 | 3min | 2 tasks | 6 files |
 | Phase 11 P01 | 2min | 2 tasks | 10 files |
 | Phase 11 P02 | 2min | 2 tasks | 12 files |
+| Phase 11 P03 | 1min | 2 tasks | 6 files |
 
 ## Decisions
 
@@ -88,3 +89,6 @@ None
 - [Phase 11]: Hard-delete unlock agent surface rather than wire it (D-01)
 - [Phase 11]: Rename unlock_name → spread_name end-to-end; no dual-write (D-02/D-03)
 - [Phase 11]: create_html_taro param renamed name → spread_name for clarity
+- [Phase 11]: Pattern 2 English UNTRUSTED_USER_MEMORY prefix with treat-as-data line (D-08)
+- [Phase 11]: Single wrap after success/fallback assign — both paths labeled once (D-09)
+- [Phase 11]: Cap log extras: tool_iterations + max_tool_iterations (D-04)
