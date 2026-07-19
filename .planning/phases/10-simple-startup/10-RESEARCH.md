@@ -448,17 +448,10 @@ raise FileNotFoundError(
 | A2 | Explicit `load_dotenv(repo_root / ".env")` is safer than bare `load_dotenv()` | Pitfall 7 | Low — bare load often works if cwd is repo root |
 | A3 | Host `127.0.0.1` is acceptable default (README uses port 8000; host not locked) | Pattern 2 | If user needs `0.0.0.0`, needs follow-up (out of D-04) |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Bind host for `aitaro-api`**
-   - What we know: D-04 locks reload + port 8000 only.
-   - What's unclear: `127.0.0.1` vs `0.0.0.0`.
-   - Recommendation: Default `127.0.0.1` (safer local); document in README if chosen.
-
-2. **Whether `aitaro_setup` should `require_env_or_exit` before or after npm build**
-   - What we know: D-02 includes both build + checklist; D-10 requires validation in setup.
-   - What's unclear: Order when both fail.
-   - Recommendation: Run npm build first (so MCP is ready), then env check (or env check first for faster feedback). Prefer **env check first** then npm — faster fail when keys missing. [ASSUMED]
+1. **Bind host for `aitaro-api`** — **RESOLVED:** `127.0.0.1` (safer local bind; document in README if URL shown).
+2. **Env check vs npm order in `aitaro_setup`** — **RESOLVED:** `require_env_or_exit` **before** npm install/build (faster fail when keys missing).
 
 ## Environment Availability
 
