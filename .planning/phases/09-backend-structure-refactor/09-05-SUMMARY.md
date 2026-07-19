@@ -72,7 +72,7 @@ Each task was committed atomically:
 1. **Task 1: Create server package with one-way agents imports** - `aea3f79` (feat)
 2. **Task 2: Update README entrypoint and layout docs** - `e6e283c` (docs)
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `4a4cdb0` (docs: complete plan)
 
 ## Files Created/Modified
 - `src/backend/server/__init__.py` - Minimal server package marker
