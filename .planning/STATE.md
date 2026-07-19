@@ -1,12 +1,12 @@
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Phase 9 plan check failed — revision required  
+**Status:** Phase 9 plans revised (6 waves) — ready to execute  
 **Last updated:** 2026-07-19
 
 ## Current Phase
 
-Phase 9: Backend Structure Refactor — plans created (`09-01`..`09-03`); plan check FAILED (see `09-PLAN-CHECK.md`)
+Phase 9: Backend Structure Refactor — plans revised after plan-check (`09-01`..`09-06`); ready to execute
 
 ## Completed
 
