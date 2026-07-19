@@ -42,6 +42,7 @@ Phase 11: Agent Harness Hardening — VERIFICATION.md written; status human_need
 - Phase 8: README & Documentation (DOC-01–03)
 - Phase 9: Backend Structure Refactor (SC-01–04) — verified
 - Phase 10: Simple Startup — verified
+- Phase 11: Agent Harness Hardening (SC-11.1–11.6) — verified
 
 ## Blockers
 
