@@ -73,7 +73,7 @@ Each task was committed atomically:
 3. **Task 2 (RED): README quickstart gates** - `68410ff` (test)
 4. **Task 2 (GREEN): README four-step Quick start** - `8ac7426` (feat)
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `4a8e080` (docs: complete plan)
 
 ## Files Created/Modified
 
