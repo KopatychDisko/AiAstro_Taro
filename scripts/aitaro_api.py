@@ -1,10 +1,12 @@
-"""Console entrypoint wrapper for aitaro-api (path setup; uvicorn in Plan 03)."""
+"""Console entrypoint wrapper for aitaro-api (path + uvicorn defaults)."""
 
 from __future__ import annotations
 
 import os
 import sys
 from pathlib import Path
+
+import uvicorn
 
 
 def find_repo_root() -> Path:
@@ -38,3 +40,9 @@ def ensure_backend_on_path() -> Path:
 
 def main() -> None:
     ensure_backend_on_path()
+    uvicorn.run(
+        "server.app:app",
+        host="127.0.0.1",
+        port=8000,
+        reload=True,
+    )

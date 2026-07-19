@@ -56,7 +56,8 @@ def test_ensure_backend_on_path_allows_server_import() -> None:
     assert keys == ("STREAM_API_KEY", "OPENAI_API_KEY", "ZEP_API")
 
 
-def test_aitaro_api_main_only_ensures_path() -> None:
+def test_aitaro_api_main_only_ensures_path(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(aitaro_api.uvicorn, "run", lambda *args, **kwargs: None)
     aitaro_api.main()
     from server.required_env import REQUIRED_ENV_KEYS as keys
 

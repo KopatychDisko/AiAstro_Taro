@@ -9,6 +9,7 @@ from langchain_core.runnables import RunnableConfig
 
 from server.auth import verify_stream_api_key
 from server.observability import build_langfuse_callbacks
+from server.required_env import require_env_or_raise
 from server.schemas import ExtractData, UserData
 from agents import setup_workflow
 
@@ -53,6 +54,7 @@ async def stream_agent(item: UserData):
 async def lifespan(app: FastAPI):
     # Startup
     global workflow
+    require_env_or_raise()
     workflow = await setup_workflow()
     yield
 
