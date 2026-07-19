@@ -73,7 +73,7 @@ Each task was committed atomically (TDD RED → GREEN):
    - `cea1eab` (test) — failing wrapper purity tests
    - `c72e71c` (feat) — `context_trust.py` + wire `take_context`
 
-**Plan metadata:** (pending docs commit)
+**Plan metadata:** `a95a693` (docs: complete plan)
 
 ## Files Created/Modified
 
