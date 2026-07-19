@@ -3,32 +3,32 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-19T21:13:19.376Z"
+last_updated: "2026-07-19T21:16:36.166Z"
 last_activity: 2026-07-19
 progress:
   total_phases: 1
   completed_phases: 0
   total_plans: 7
-  completed_plans: 4
-  percent: 57
+  completed_plans: 5
+  percent: 0
 ---
 
 # Project State
 
 **Milestone:** v1.0 — Brownfield Hardening  
-**Status:** Executing Phase 9 — Plan 04 complete
+**Status:** Ready to execute
 **Last updated:** 2026-07-19
 
 ## Current Position
 
 Phase: 09-backend-structure-refactor
-Plan: 5 of 6 in current phase
-Status: Executing
+Plan: 6 of 6 in current phase
+Status: Ready to execute
 Last activity: 2026-07-19
 
 ## Current Phase
 
-Phase 9: Backend Structure Refactor — executing (09-04 complete; next 09-05)
+Phase 9: Backend Structure Refactor — executing (09-05 complete; next 09-06)
 
 ## Completed
 
@@ -44,6 +44,7 @@ Phase 9: Backend Structure Refactor — executing (09-04 complete; next 09-05)
 - Phase 9 Plan 02: Per-agent router/taro/astro packages (MCP ../../../ preserved)
 - Phase 9 Plan 03: Memory/cards factories + create_agents aggregator
 - Phase 9 Plan 04: Workflow nodes + setup_workflow public export
+- Phase 9 Plan 05: Server package (app/auth/schemas/observability) + README uvicorn server.app:app
 
 ## Blockers
 
@@ -71,6 +72,8 @@ None
 - [Phase 09]: Keep unlock_card_agent in create_agents for Agents shape / mocks
 - [Phase 09]: Per-agent nodes use create_*_node(agents) factories so LangGraph callables close over Agents like legacy nested defs
 - [Phase 09]: img_node stays a plain async function (no Agents dependency); route_from_router exported from router.node
+- [Phase 09-05]: No root app.py shim — dual tree until Plan 06 (D-03/D-04)
+- [Phase 09-05]: Absolute server.* and agents.* imports under PYTHONPATH=src/backend
 
 ### Performance Metrics
 
@@ -80,9 +83,10 @@ None
 | 09 | 02 | 2min | 2 | 9 |
 | 09 | 03 | 1min | 2 | 9 |
 | 09 | 04 | 1min | 2 | 6 |
+| Phase 09 P05 | 1min | 2 tasks | 6 files |
 
 ### Session
 
-- Stopped at: Completed 09-04-PLAN.md
-- Resume: `/gsd-execute-phase 9` (continue from 09-05)
-- Last session: 2026-07-19T21:12:33Z
+- Stopped at: Completed 09-05-PLAN.md
+- Resume: `/gsd-execute-phase 9` (continue from 09-06)
+- Last session: 2026-07-19T21:16:52Z
