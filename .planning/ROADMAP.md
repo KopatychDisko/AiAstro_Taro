@@ -45,13 +45,13 @@ Harden the existing AI-Taro tarot assistant for portfolio and interview presenta
   3. Graph is split into modules/folders by agent and subagent (router, taro, astro, memory, card mapping, routing) — not one large `nodes.py` / `agent.py`
   4. Public imports and `pytest -q` stay green after the move; behavior unchanged
 
-**Plans:** 3/6 plans executed
+**Plans:** 4/6 plans executed
 
 Plans:
 
 - [x] 09-01-PLAN.md — Agents foundation (models, state, routing, config, cards mapping)
 - [x] 09-02-PLAN.md — Per-agent router/taro/astro factories (MCP ../../../)
 - [x] 09-03-PLAN.md — Memory/cards factories + create_agents aggregator
-- [ ] 09-04-PLAN.md — Workflow nodes + setup_workflow public export
+- [x] 09-04-PLAN.md — Workflow nodes + setup_workflow public export
 - [ ] 09-05-PLAN.md — Server package + README uvicorn server.app:app
 - [ ] 09-06-PLAN.md — Hard-cut tests, delete legacy graph/flat modules, grep gates
